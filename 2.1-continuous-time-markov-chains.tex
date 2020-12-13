@@ -77,7 +77,7 @@ We are now considering a continuous-time markov chain with a countable state spa
     is called the \textbf{generator} or the \textbf{rate matrix} of the process.
 \end{definition}
 
-\begin{prop}
+\begin{proposition}
     $P_t = \exp(tG)$ in the sense of power series.
     
     \begin{proof}
@@ -94,9 +94,9 @@ We are now considering a continuous-time markov chain with a countable state spa
 
         So $P_t = C \cdot \exp(tG)$, where $C$ is a constant diagonal matrix with diagonal elements being equal. By $P_0 = I$, we konw $C = I$.
     \end{proof}
-\end{prop}
+\end{proposition}
 
-\begin{prop}
+\begin{proposition}
     The generator $G$ also satisfies 
     
     \begin{equation*}
@@ -112,7 +112,7 @@ We are now considering a continuous-time markov chain with a countable state spa
 
         And by conservation of probability, we have $\mbf{\pi}_t \vec{1} = \vec{1}$, which implies $\mbf{\pi}_t G \vec{1} = \frac{\dif \mbf{\pi}_t \vec{1}}{\dif t} = 0$. Since $\mbf{\pi}_t$ is arbitrary, we have $G \vec{1} = 0$.
     \end{proof}
-\end{prop}
+\end{proposition}
 
 \begin{theorem}[The Master Equation]
     The equation 
@@ -162,10 +162,30 @@ We are now considering a continuous-time markov chain with a countable state spa
     \end{equation*}
 \end{definition}
 
-\begin{prop}[$\text{Reversibility} \implies \text{Stationarity}$]
+\begin{proposition}[$\text{Reversibility} \implies \text{Stationarity}$]
     If $\mbf{\pi} \in \Delta$ is reversibile, then it is also stationary.
-\end{prop}
+\end{proposition}
 
-\begin{prop}
-    
-\end{prop}
+\begin{proposition}
+    $S$ is fintie $\implies$ $\exists$ stationary $\mbf{\pi}$.
+\end{proposition}
+
+There is an analogous decomposition of the state space $S$ into transient and recurrent states, and of the set of recurrent states into communicating components. And we have the same definition of an absorbing component. 
+
+\begin{proposition}
+    If $S$ is finite, then each absorbing component has a unique stationary probability $\mbf{\pi}$, and the space of starionary $\mbf{\pi}$ for the whole continuous-time Markov chain (up to normalisation) is the span of those for its absorbing components. Furthermore, $0$ is a semisimple eigenvalue of $G$.
+\end{proposition}
+
+\begin{theorem}
+    Suppose $S$ is finite and $G$ has a unique absorbing component, then the process is SP-ergodic, which means 
+
+    \begin{equation*}
+        \lim_{t \to \infty} \mbf{\pi}_t = \mbf{\pi}_A, 
+    \end{equation*}
+
+    where $\mbf{\pi}_A$ is the stationary distribution of the absorbing component.
+\end{theorem}
+
+\begin{remark}
+    Aperiodicity is automatic in continuous time.
+\end{remark}
