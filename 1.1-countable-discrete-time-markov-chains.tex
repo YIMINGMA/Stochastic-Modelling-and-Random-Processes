@@ -1,0 +1,76 @@
+\section{Countable Discrete-Time Markov Chains}
+
+One can extend much of what we have done for finite discrete-time Markov chains to the countably infinite case, e.g. the \textbf{simple random walk} on $\mbb{Z}$, but some results become more subtle. For example, the simple random walk is \textit{not SP-ergodic}, despite being \textit{irreducible}. Actually, it even \textit{fails to have a stationary probability}; also it is \textit{not aperiodic}, and it has a \textit{period} $2$.
+
+\begin{example}
+    Using definition of the simple random walk:
+
+    \begin{equation*}
+        Y_n = \sum_{i=0}^{n-1} X_i,
+    \end{equation*}
+
+    where $X_i$'s are independent and identically distributed, with 
+
+    \begin{equation*}
+        X_i = 
+        \begin{cases}
+            +1 \qquad & \text{with probability} \, p \\
+            -1 \qquad & \text{with probability} \, 1-p
+        \end{cases},
+    \end{equation*}
+
+    Compute the $\E[Y_n]$ and $\Var[Y_n]$.
+\end{example}
+
+One has to refine various concepts. 
+
+\begin{definition}[The First Return Time]
+    The \textbf{first return time} to state $x$ is defined as 
+    
+    \begin{equation*}
+        T_x = \inf\{n \ge 1: X_n = x | X_0 = x\}.
+    \end{equation*}
+\end{definition}
+
+\begin{remark}
+    Notice that when the state space is finite and $x$ is recurrent, $T_x$ is finite. Since the state space here is countably infinite, $T_x$ is allowed to be infinte.
+\end{remark}
+
+\begin{definition}[Transience]
+    Say $x \in S$ is \textbf{transient} if 
+    
+    \begin{equation*}
+        \Prob[T_x = \infty] > 0.
+    \end{equation*}
+\end{definition}
+
+\begin{remark}
+    If $x \in S$ is transient, then with probability $1$ $X_n$ comes back to $x$ only finitely many times.
+\end{remark}
+
+\begin{definition}[Null Recurrence]
+    Say $x \in S$ is \textbf{null recurrent} if 
+
+    \begin{equation*}
+        \Prob[T_x < \infty] = 1 \quad \text{and} \quad \E[T_x] = \infty.
+    \end{equation*}
+\end{definition}
+
+\begin{definition}[Positive Recurrence]
+    Say $x \in S$ is \textbf{positive recurrent} if 
+
+    \begin{equation*}
+        \Prob[T_x < \infty] = 1 \quad \text{and} \quad \E[T_x] < \infty.
+    \end{equation*}
+\end{definition}
+
+\begin{remark}
+    A communicating class is either \textbf{null recurrent}, which means every member is null recurrent, or \textbf{positive recurrent} which means every member is positive recurrent. 
+\end{remark}
+
+\begin{theorem}[Stationarity $\iff$ Positive Recurrence]
+    An absorbing class has a stationary probability if and only if it is positive recurrent. Furthermore, if the class has one stationary probability, then it is uniquely determined by 
+    \begin{equation*}
+        \mbf{\pi}_x = \frac{1}{\E[T_x]}.
+    \end{equation*}
+\end{theorem}

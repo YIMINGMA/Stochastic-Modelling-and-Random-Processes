@@ -1,0 +1,171 @@
+\section{Continuous-Time Markov Chains}
+
+We are now considering a continuous-time markov chain with a countable state space $S$ and the domain $T \in \mbb{R}$ (or $T \in \mbb{R}_+$), and we restrict $X: \mbb{R} \mapsto S$ to those which are \textit{piecewise constant} and \textit{right-continuous}, meaning
+
+\begin{equation*}
+    X(t) = 
+    \begin{cases}
+        \vdots &  \vdots \\ 
+        s \quad & t \in [J_s, J_{s'}) \\ 
+        s' \quad & t \in [J_{s'}, J_{s''}) \\ 
+        \vdots & \vdots \\ 
+    \end{cases}
+\end{equation*}
+
+\begin{definition}[Continuous-Time Markov Chains]
+    $X(t): \mbb{R} \mapsto S$ is a \textbf{continuous-time Markov chain}, if it satisfies the \textbf{Markov property}
+
+    \begin{equation*}
+        \Prob[X(t_{n+1}) \in A | X(t_n) = s_n, \cdots, X(t_1) =  s_1] = \Prob[X(t_{n+1}) \in A | X(t_n) = s_n],
+    \end{equation*}
+
+    where $A \subset S$ and $t_1 < \cdots t_{n} < t_{n+1}$.
+\end{definition}
+
+\begin{definition}[Homogeneity]
+    A continuous-time Markov chain is \textbf{homogeneous} if 
+
+    \begin{equation*}
+        \Prob [X(t+u) \in A | X(u) = s] = \Prob [X(t) \in A | X(0) = s].
+    \end{equation*}
+\end{definition}
+
+\begin{remark}
+    Homogeneity means time translation invariance.
+\end{remark}
+
+
+\begin{definition}[Transition Matrices]
+    Let $(P_t)_{i,j} := \Prob [X(t) = j | X(0) = i]$, then $P_t$ is the transition matrix with time step $t$.
+\end{definition}
+
+\begin{remark}
+    The $(i,j)$ element of the transition matrix $P_t$ can also be expressed as $P_t(i, j)$.
+\end{remark}
+
+\begin{theorem}[Chapman-Kolmogorov Equation]
+    The transition matrix $P$ of a homogeneous Markov chain satisfies
+
+    \begin{equation*}
+        P_{t+u} = P_t P_u, \, P_0 = I.
+    \end{equation*}
+
+    \begin{proof}
+        Notice that
+
+        \begin{align*}
+            (P_{t+u})_{i,j} = & \Prob[X(t+u) = j | X(0) = i] \\ 
+            = & \sum_{k \in S} \Prob[X(t+u) = j | X(t) = k, \, X(0) = i] \Prob[X(t) = k | X(0) = i] \\ 
+            = & \sum_{k \in S} \Prob[X(t+u) = j | X(t) = k] \Prob[X(t) = k | X(0) = i] \\ 
+            = & \sum_{k \in S} \Prob[X(u) = j | X(0) = k] \Prob[X(t) = k | X(0) = i] \\ 
+            = & \sum_{k \in S} (P_u)_{k, j} (P_t)_{i, k} \\ 
+            = & (P_t)_{i, :} \; (P_u)_{:, j},
+        \end{align*}
+
+        where $(P_t)_{i, :}$ is the $i$-th row of $P_t$ and $(P_u)_{:, j}$ is the $j$-th column of $P_u$. Thus, $P_{t+u} = P_t P_u$. 
+
+        And by definition, $(P_0)_{i,j} = \Prob[X_0 = j | X_0 = i] = \delta_{i,j}$, so $P_0 = I$.
+    \end{proof}
+\end{theorem}
+
+\begin{definition}[Generator / Rate Matrix]
+    Suppose $P_t$ is differentiable with respect to $t$ at $t = 0$, then 
+
+    \begin{equation*}
+        G :=  \left. \frac{\dif P_t}{\dif t} \right|_{t = 0}
+    \end{equation*}
+    is called the \textbf{generator} or the \textbf{rate matrix} of the process.
+\end{definition}
+
+\begin{prop}
+    $P_t = \exp(tG)$ in the sense of power series.
+    
+    \begin{proof}
+        By the Chapman-Kolmogorov equation, we have 
+        
+        \begin{align*}
+            P_{t+u} = & P_t P_u \\ 
+            P_{t+u} - P_t = & P_t (P_u- I) \\ 
+            \frac{P_{t+u} - P_t}{u} = & P_t \cdot \frac{P_u - I}{u} \\ 
+            \lim_{u \to 0} \frac{P_{t+u} - P_t}{u} = & \lim_{u \to 0} P_t \cdot \frac{P_u - I}{u} \\ 
+            \lim_{u \to 0} \frac{P_{t+u} - P_t}{u} = &  P_t \cdot \lim_{u \to 0} \frac{P_u - I}{u} \\ 
+            \frac{\dif P_t}{\dif t} = &  P_t G,
+        \end{align*}
+
+        So $P_t = C \cdot \exp(tG)$, where $C$ is a constant diagonal matrix with diagonal elements being equal. By $P_0 = I$, we konw $C = I$.
+    \end{proof}
+\end{prop}
+
+\begin{prop}
+    The generator $G$ also satisfies 
+    
+    \begin{equation*}
+        G \vec{1} = \vec{0}.
+    \end{equation*}
+
+    \begin{proof}
+        For any probability distribution $\mbf{\pi}_t = \mbf{\pi}_0 P_t$ with initial distribution $\mbf{\pi}_0$, evolves by 
+
+        \begin{equation*}
+            \frac{\dif \mbf{\pi}_t}{\dif t} = \mbf{\pi}_0 \frac{\dif P_t}{\dif t} = \mbf{\pi}_0 P_t G = \mbf{\pi}_t G.
+        \end{equation*}
+
+        And by conservation of probability, we have $\mbf{\pi}_t \vec{1} = \vec{1}$, which implies $\mbf{\pi}_t G \vec{1} = \frac{\dif \mbf{\pi}_t \vec{1}}{\dif t} = 0$. Since $\mbf{\pi}_t$ is arbitrary, we have $G \vec{1} = 0$.
+    \end{proof}
+\end{prop}
+
+\begin{theorem}[The Master Equation]
+    The equation 
+
+    \begin{equation*}
+        \frac{\dif \mbf{\pi}_t}{\dif t} = \mbf{\pi}_t G
+    \end{equation*}
+    
+    can be written into
+
+    \begin{equation*}
+        \frac{\dif (\mbf{\pi}_t)_i}{\dif t} = \underbrace{\sum_{j \neq i} (\mbf{\pi}_t)_j G_{j, i}}_{\text{``gain''}}  - \underbrace{\sum_{j \neq i} (\mbf{\pi}_t)_i G_{i, j}}_{\text{``loss''}},
+    \end{equation*}
+
+    which is called the \textbf{master equation}.
+
+    \begin{proof}
+        For $i \neq j$, since $G_{i,j}$ is the rate at which the process goes from state $i$ to $j$, we have $G_{i,j} \ge 0$. By $G \vec{1} = \vec{0}$, we have 
+    
+        \begin{equation*}
+            G_{i, i} = - \sum_{j \neq i} G_{i, j}.
+        \end{equation*}
+    
+        So 
+    
+        \begin{align*}
+            \frac{\dif (\mbf{\pi}_t)_i}{\dif t} = & \mbf{\pi}_t G_{:, i} \\ 
+            = & \sum_{j \in S} (\mbf{\pi}_t)_j G_{j, i} \\ 
+            = & \sum_{j \neq i} (\mbf{\pi}_t)_j G_{j, i} - \sum_{j \neq i} (\mbf{\pi}_t)_i G_{i, j}.
+        \end{align*}
+    \end{proof}
+\end{theorem}
+
+\begin{remark}
+    The name ``master equation'' is exaggerated; it does not tell everything about the process, such as the correlations between states at different times.
+\end{remark}
+
+\begin{definition}[Stationarity]
+    Say $\mbf{\pi} \in \Delta$ is \textbf{stationary} if $\mbf{\pi} G = 0$.
+\end{definition}
+
+\begin{definition}[Reversibility]
+    Say $\mbf{\pi} \in \Delta$ is \textbf{reversible} if 
+
+    \begin{equation*}
+        \mbf{\pi}_i G_{i,j} = \mbf{\pi}_j G_{j, i}, \; \forall i,j \in S.
+    \end{equation*}
+\end{definition}
+
+\begin{prop}[$\text{Reversibility} \implies \text{Stationarity}$]
+    If $\mbf{\pi} \in \Delta$ is reversibile, then it is also stationary.
+\end{prop}
+
+\begin{prop}
+    
+\end{prop}

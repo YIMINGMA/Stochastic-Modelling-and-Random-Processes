@@ -1,4 +1,4 @@
-\documentclass[a4paper,12pt]{article}
+\documentclass[a4paper,12pt]{report}
 
 % Math
 \usepackage{amsmath}
@@ -61,14 +61,36 @@
 % \usepackage[nottoc]{tocbibind}
 
 \newcommand{\mbb}[1]{\mathbb{#1}}
-\newcommand{\mbbm}[1]{\mathbbm{#1}}
 \newcommand{\mbf}[1]{\pmb{#1}}
-\title{Stochastic Modelling and Random Processes\\ Problem Sheet 3}
+
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+
+\theoremstyle{plain}
+\newtheorem{prop}{Proposition}[section]
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+\theoremstyle{definition}
+\newtheorem{example}{Example}[section]
+
+\title{Stochastic Modelling and Random Processes}
 \author{Yiming MA}
 
 \begin{document}
 \maketitle
 \tableofcontents
 
-\input{Q3.1.tex}
+\input{1-discrete-time-markov-chains.tex}
+
+\input{2-continuous-time-markov-chains.tex}
 \end{document}
