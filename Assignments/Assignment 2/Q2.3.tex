@@ -1,0 +1,223 @@
+\section{\href{https://en.wikipedia.org/wiki/Moran_process}{Moran Model} and Wright-Fisher Diffusion}
+
+Consider a fixed population of $L$ individuals. At time $t = 0$, each individuum $i$ has a different type $X_0(i)$, and for simplicity, we simply put $X_0(i) = i$. In continuous time, each individuum indepently, with rate $1$, imposes its type on another randomly chosen individuum (or equivalently, kills it and puts its own offspring in its place).
+
+\begin{enumerate}
+    \item[(a)] Give the state space of the Markov chain $(X_t: t\ge 0)$. Is it irreducible? What are the stationary distributions?
+    
+    \textit{ Sol. } Since $X_t(i)$ ($i \in \{1, \cdots, L\}$) is the type of the $i$-th individual at time $t$ and there are $L$ types in total, the state space is $\{1,\cdots,L\}$. 
+    
+    The process is not irreducible. Suppose at time $t_0$, individual $1$ with type $1$ dies and individual $L$ with type $L$ reproduces to substitute, i.e. 
+    $$
+    t_0 = \inf \{t > 0: \sum_{i=1}^L \delta_{X_t(i), \, 1} \neq 1\},
+    $$
+    such that $X_{t_0}(1) = X_{t_0}(L) = L$. Since there are no individuals with tpye $1$ any more, $P_t(1, y) = 0$ for any $t \ge t_0$ and $y \in \{2, \cdots, L\}$.
+
+    Stationary distributions mean once these distributions are entered, the process will stay in them forever. So the stationary distributions of the process are $\mbf{e}_i$, with $i = 1, \cdots, L$.
+
+    \item[(b)] Let $N_t = \sum_{i=1}^L \delta_{X_t(i),\,k}$ be the number of individuals of a given type $k \in \{1, \cdots, L\}$ at time $t$, with $N_0 = 1$.
+        \begin{itemize}
+            \item Is $(N_t: t \ge 0)$ a Markov process? Given the state space and the generator.
+
+            \textit{ Sol. } The process is obviously Markov, as the distribution of $N_{t_{n+1}}$ given $N_{t_{n}}$, $N_{t_{n-1}}$, $\cdots$, $N_{t_{0}}$ only depends on $N_{t_{n}}$.
+
+            The state space of  $(N_t: t \ge 0)$ is $\{0, 1, \cdots, L\}$.
+
+            Suppose $N_t = i$, where $i \in \{1, \cdots, L-1\}$. Since there are $i$ individuals of type $k$ and each of them reproduces at rate $1$, the total rate of reproduction of individuals of type $k$ is just $i$. Also, we need to select $1$ out of the $L-i$ individuals with other types to be replaced, and this gives the probability $\frac{L-i}{L}$. So 
+            $$G_{i,i+1} = \frac{i(L-i)}{L}.$$
+            Similarly, we also have 
+            $$G_{i,i-1} = \frac{i(L-i)}{L}.$$
+            Since $\sum_{j = 1}^{L+1} G_{i,j} = 1$, we know
+            $$G_{i,i} = - \frac{2i(L-i)}{L}.$$
+
+            Since state $0$ and state $L$ are absorbing, $G_{0, i} = G_{L, i} = 0$, for any $i \in \{0, \cdots, L\}$.
+
+            Hence, the rate matrix $G$ (indices start from $0$ and end at $L$), whose $(i,j)$ element represents the transition rate from state $i - 1$ into state $j-1$ , is given by 
+            $$
+            G_{i,j} = \begin{cases}
+                \frac{i(L-i)}{L} \qquad & j = i - 1,\, i \in \{1, \cdots, L-1 \} \\ 
+                - \frac{2i(L-i)}{L} \qquad & j = i, \, i \in \{1, \cdots, L-1\} \\
+                \frac{i(L-i)}{L} \qquad & j = i + 1,\, i \in \{1, \cdots, L-1 \} \\ 
+                0 \qquad & \text{Otherwise}
+            \end{cases}.
+            $$
+
+            \item Is the process irreducible? What are the stationary distributions?
+            
+            \textit{ Sol. } The process is not irreducible, since state $0$ and state $L$ are absorbing while others are not. Following the same argument in (a), the stationary distributions are $\mbf{e}_0$ and $\mbf{e}_L$.
+
+            \item What is the limiting distribution as $t \to \infty$ for the initial condition $N_0 = 1$?
+            
+            \textit{ Sol. } As $t \to \infty$, all types have the equal possibility to become the only type of the population. So 
+            $$\lim_{t\to\infty}\mbb{P}[N_t = L] = \frac{1}{L}$$
+            and 
+            $$\lim_{t\to\infty}\mbb{P}[N_t = 0] = \frac{L-1}{L}.$$
+        \end{itemize} 
+        
+        \item[(c)] From now consider general initial conditions $N_0 = n \in \{0, \cdots, L \}$. 
+        \begin{itemize}
+            \item Compute $m_1(t) = \mbb{E}[N_t]$ for all $t \ge 0$.
+            \item Compute $m_2(t) = \mbb{E}[N_t^2]$. What happens in the limit $t \to \infty$?
+            \item Compute the absorption probabilities as a function of the initial condition $n$.
+        \end{itemize} 
+
+        \textit{ Sol. } To solve $m_1(t)$ and $m_2(t)$, we solve $\mbb{E} [f(N_t)]$ where $f: S := \{0, \cdots, L\} \mapsto \mbb{R}$ first. 
+        
+        Obviously, the following two statements hold.
+        \begin{equation}\label{eqn14}
+            \mbb{E}[f(N_t)] = f(0),\quad \text{when } N_0 = 0.
+        \end{equation}
+        \begin{equation}\label{eqn15}
+            \mbb{E} [f(N_t)] = f(L), \quad \text{when } N_0 = L.
+        \end{equation}
+
+        Now suppose $N_0 = n \in \{2, \cdots, L-1\}$.
+        By $$\mbb{E} [f(N_t)] = \sum_{x \in S} \mbf{\pi}_t(x) f(x) = \langle \mbf{\pi}_t | f \rangle$$ and $$\frac{\dif}{\dif t} \langle \mbf{\pi}_t | = \langle \mbf{\pi}_t | G,$$ 
+        we have 
+        $$
+        \frac{\dif}{\dif t} \mbb{E} [f(N_t)] = \frac{\dif}{\dif t} \langle \mbf{\pi}_t | f \rangle = \langle \mbf{\pi}_t | G | f \rangle = \mbb{E} [ (Gf)(N_t)].$$
+        So 
+        \begin{align} \label{eqn16}
+            \frac{\dif}{\dif t} \mbb{E} [f(N_t)] = & \sum_{k \in S} P_t(n, k) \left( \sum_{j \neq k} G_{k, j}[f(j) - f(k)]\right)  \notag \\ 
+            = &  \sum_{k \in S} P_t(n, k) \left(G_{k, k-1} [f(k-1) - f(k)] + G_{k, k+1} [f(k+1) - f(k)] \right) \notag \\ 
+            = & \sum_{k \in S} P_t(n, k) \cdot \frac{k(L-k)}{L} \cdot [f(k-1) + f(k+1) - 2f(k)].
+        \end{align}
+        Set $f(x) = x$ in \eqref{eqn14}, then we have 
+        $$
+        \frac{\dif}{\dif t} \mbb{E} [N_t] = \sum_{k \in S} P_t(n, k) \cdot \frac{k(L-k)}{L} \cdot [(k-1) + (k+1) - 2k] = 0,
+        $$
+        which means $m_1(t) = m_1(0) = n$, for $n \in \{2, \cdots, L-1\}$. Along with \eqref{eqn14} and \eqref{eqn15}, we know $m_1(t) = n$, for all $n \in S$.
+
+        Set $f(x) = x^2$ in \eqref{eqn14}, and we get 
+        \begin{align}\label{eqn17}
+            \frac{\dif}{\dif t}m_2(t)
+            = & \frac{\dif}{\dif t} \mbb{E} [N_t^2] \notag \\ 
+            = & \sum_{k \in S} P_t(n,k) \cdot \frac{k (L- k)}{L} \cdot [(k-1)^2 + (k+1)^2 -2 k^2] \notag \\ 
+            = &  \sum_{k \in S} P_t(n,k) \cdot \frac{k (L- k)}{L} \cdot 2 \notag \\
+            = & \frac{2}{L}  \left(L \cdot \sum_{k \in S} P_t(n,k) \cdot k - \sum_{k \in S} P_t(n,k)\cdot k^2\right) \notag \\ 
+            = & \frac{2}{L} \cdot \left( L \cdot \mbb{E}[X_t] - \mbb{E}[X_t^2]\right) \notag \\ 
+            = & 2 \mbb{E} [X_t] - \frac{2}{L} \mbb{E}[X_t^2]  \notag \\ 
+            = & 2n - \frac{2}{L} m_2(t)
+        \end{align}
+        The general solution to the homogeneous version of \eqref{eqn17} is 
+        \begin{equation*}
+            h(t) = C_1 e^{-\frac{2}{L}t},
+        \end{equation*}
+        where $C_1 \in \mbb{R}$ is a constant. Now suppose $p(t) = e^{-\frac{2}{L}t} + C_2$ is a particular solution to \eqref{eqn17}, then 
+        \begin{equation*}
+            -\frac{2}{L} e^{-\frac{2}{L}t}= \frac{\dif p(t)}{\dif t} = 2n - \frac{2}{L}p(t) = 2n - \frac{2}{L} \left(e^{-\frac{2}{L}t} + C_2 \right),
+        \end{equation*}
+        which gives $C_2 = nL$. So the general solution to \eqref{eqn17} is 
+        \begin{equation*}
+            m_2(t) = C_1 e^{-\frac{2}{L}t} + nL.
+        \end{equation*}
+        By $m_2(0) = \mbb{E} [X_0^2] = \mbb{E}[n^2] = n^2$, we know $C_1 = n^2 - nL = n(n-L)$. Together with \eqref{eqn14} and \eqref{eqn15}, we have 
+        \begin{equation}\label{eqn18}
+            m_2(t) = n(n-L)e^{-\frac{2}{L}t} + nL.
+        \end{equation}
+        Let $t \to \infty$ in \eqref{eqn18}, and we have 
+        \begin{equation*}
+            \lim_{t \to \infty} m_2(t) = nL.
+        \end{equation*}
+
+        Let $\tau = \inf\{t \ge 0: N_t \in \{0, L\}\}$, which is the time when the process enters the either one of two absorption states $0$ and $L$. By $\mbb{E} [N_t] = m_2(t) = n$, we have 
+        \begin{equation*}
+            n = \mbb{E} [N_\tau] = 0 \cdot \mbb{P}[N_\tau = 0] + L \cdot \mbb{P}[N_\tau = L] = L \cdot \mbb{P}[N_\tau = L],
+        \end{equation*}
+        so $\mbb{P}[N_\tau = L] = \frac{n}{L}$, which is the probability that the process eventually falls in the state $L$. Thus, the probability that the process eventually fixed in the state $0$ is $\frac{L - n}{L}$.
+        \item[(d)] Consider the rescaled process $(M_t^L: t \ge 0)$ where 
+            $$
+            M_t^L = \frac{1}{L} N_{t L^\alpha}
+            $$
+            on the state space $[0,1]$. For which value of $\alpha > 0$ does $(M_t^L: t \ge 0)$ have a (non-trivial) scaling limit $(M_t: t \ge 0)$?
+
+            Compute the generator of this process and write down the Fokker-Planck equation. (The scaling limit is called \textbf{Wright-Fisher diffusion}.)
+
+        \textit{ Sol. }
+        The rate matrix of the rescaled process is 
+        $$
+            G_{i,j} = \begin{cases}
+                i(L-i) L^{\alpha - 1}\qquad & j = i - \frac{1}{L},\, i \in \left\{\frac{1}{L}, \cdots, \frac{L-1}{L} \right\} \\ 
+                - 2i(L-i) L^{\alpha - 1} \qquad & j = i, \, i \in \left\{ \frac{1}{L}, \cdots, \frac{L-1}{L} \right\} \\
+                i(L-i) L^{\alpha - 1} \qquad & j = i + \frac{1}{L},\, i \in \left\{ \frac{1}{L}, \cdots, \frac{L-1}{L} \right\} \\ 
+                0 \qquad & \text{Otherwise}
+            \end{cases}.
+        $$
+        By $(\mathcal{L}f)(X_t) = (Gf)(X_t)$, we have 
+        \begin{equation*}
+            (\mathcal{L}f)(x) 
+            =  \sum_{y \neq x} G_{x,y} [f(y) -f(x)].
+        \end{equation*}
+        For $x = 0$ and $x = 1$, $(\mathcal{L}f)(0) = (\mathcal{L}f)(1) = 0$. So now suppose $x \in \left\{\frac{1}{L}, \cdots, \frac{L-1}{L}\right\}$, then we have 
+        \begin{align}\label{eqn19}
+            (\mathcal{L}f)(x) = & x(L-x)L^{\alpha-1} \left[f\left(x+\frac{1}{L}\right) + f\left(x-\frac{1}{L}\right) - 2 f(x) \right] \notag \\ 
+            = & x L^\alpha  \left[f\left(x+\frac{1}{L}\right) + f\left(x-\frac{1}{L}\right) - 2 f(x) \right] \notag\\ 
+            & - x^2 L^{\alpha-1}  \left[f\left(x+\frac{1}{L}\right) + f\left(x-\frac{1}{L}\right) - 2 f(x) \right]
+        \end{align}
+        Suppose $f$ is smooth enough to be Taylor expanded into the second order, and perform Taylor expansion of terms involving $f$ in \eqref{eqn19}:
+        \begin{align}\label{eqn20}
+            f\left(x+\frac{1}{L}\right) + f\left(x-\frac{1}{L}\right) - 2 f(x) = & f(x) + \frac{1}{L}f'(x) + \frac{1}{2L^2} f''(x) + o(\frac{1}{L^2}) \notag \\ 
+            & + f(x) - \frac{1}{L}f'(x) + \frac{1}{2L^2} f''(x) + o(\frac{1}{L^2}) \notag \\ 
+            & - 2f(x) \notag \\ 
+            = & \frac{1}{L^2} f''(x) + o(\frac{1}{L^2})
+        \end{align}
+        Plug \eqref{eqn20} expansion into \eqref{eqn19}, then we have 
+        \begin{equation*}
+            (\mathcal{L}f)(x) = x L^{\alpha - 2} f''(x)  - x^2 L^{\alpha - 3}f''(x) + o(L^{\alpha - 2}).
+        \end{equation*}
+        So in order that the process has a scaling limit, $\alpha > 0$ should satisfy $\alpha -2 \le 0$ and $\alpha - 3 \le 0$ at the same time, which gives $\alpha \in (0, 2]$. $\alpha$ has to be $2$ such that the limiting process is non-trivial, and the corresponding limiting process has the generator 
+        \begin{equation*}
+            (\bar{\mathcal{L}}f)(x) = x f''(x).
+        \end{equation*}
+
+        Now, we are going to derive the Fokker-Planck equation of $(M_t: t \ge 0)$.
+        \begin{align}\label{eqn21}
+            \frac{\dif}{\dif t} \mbb{E} [f(M_t)] = & \mbb{E} [(\bar{\mathcal{L}}f)(M_t)] \notag \\ 
+            \frac{\dif}{\dif t} \int_{0}^1 P_t(x, y) f(y) \dif y = & \mbb{E} [X_t f''(M_t)] \notag \\ 
+            \int_0^1 \frac{\partial}{\partial t} P_t(x, y) f(y) \dif y  = &\int_0^1 P_t(x,y) y f''(y) \dif y.
+        \end{align}
+        Doing integration by parts on the right-hand side of \eqref{eqn21} gives 
+        \begin{align}\label{eqn22}
+            \int_0^1 P_t(x,y) y f''(y) \dif y = & \int_0^1 P_t(x,y) y \dif f'(y) \notag \\ 
+            = & P_t(x,y) y f'(y) |_{y = 0}^{y = 1} - \int_0^1 f'(y) \frac{\partial}{\partial y} (P_t(x,y) y)  \dif y \notag \\ 
+            = & P_t(x,y) y f'(y) |_{y = 0}^{y = 1} - \int_0^1 f'(y)  \left( \frac{\partial P_t(x,y)}{\partial y} y + P_t(x,y) \right) \dif y
+        \end{align}
+        Assuming $ \lim_{t\to\infty} P_t(x,y) = 0$ and $t$ is large enough,  the right-hand side of \eqref{eqn22} becomes 
+        \begin{eqnarray}\label{eqn23}
+            \lefteqn{P_t(x,y) y f'(y) |_{y = 0}^{y = 1} - \int_0^1 f'(y)  \left( \frac{\partial P_t(x,y)}{\partial y} y + P_t(x,y) \right) \dif y} & & \notag \\ 
+            & \approx &  - \int_0^1 f'(y)  \left( \frac{\partial P_t(x,y)}{\partial y} y + P_t(x,y) \right) \dif y \notag \\ 
+            & = & - \int_0^1 \frac{\partial P_t(x,y)}{\partial y} y f'(y) \dif y - \int_0^1 P_t(x,y) f'(y) \dif y \notag \\ 
+            & = & - \int_0^1 \frac{\partial P_t(x,y)}{\partial y} y \dif f(y) - \int_0^1 P_t(x,y) \dif f(y) \notag \\ 
+            & = & - \left. \frac{\partial P_t(x,y)}{\partial y} y f(y) \right\vert_{y=0}^{y=1} + \int_0^1 f(y) \left( \frac{\partial^2 P_t(x,y)}{\partial y^2} y - \frac{\partial P_t(x,y)}{\partial y}\right) \dif y \notag \\ 
+            & & - P_t(x,y)f(y) |_{y = 0}^{y = 1} + \int_0^1 \frac{\partial P_t(x,y)}{\partial y} f(y) \dif y \notag \\ 
+            & \approx & - \left. \frac{\partial P_t(x,y)}{\partial y} y f(y) \right\vert_{y=0}^{y=1} + \int_0^1 f(y) \left( \frac{\partial^2 P_t(x,y)}{\partial y^2} y - \frac{\partial P_t(x,y)}{\partial y}\right) \dif y \notag \\ 
+            & & + \int_0^1 \frac{\partial P_t(x,y)}{\partial y} f(y) \dif y \notag \\ 
+            & = & - \left. \frac{\partial P_t(x,y)}{\partial y} y f(y) \right\vert_{y=0}^{y=1} + \int_0^1 f(y) \cdot \frac{\partial^2 P_t(x,y)}{\partial y^2} y \dif y
+        \end{eqnarray}
+        Also, assume $\lim_{t\to\infty} \frac{\partial P_t(x,y)}{\partial y} = 0$, then in \eqref{eqn23} we have 
+        \begin{equation*}
+            P_t(x,y) y f'(y) |_{y = 0}^{y = 1} - \int_0^1 f'(y)  \left( \frac{\partial P_t(x,y)}{\partial y} y + P_t(x,y) \right) \dif y \approx \int_0^1 f(y) \cdot \frac{\partial^2 P_t(x,y)}{\partial y^2} y \dif y
+        \end{equation*}
+        Combined with the \eqref{eqn21}, we have 
+        \begin{equation*}
+            \int_0^1 \frac{\partial}{\partial t} P_t(x, y) f(y) \dif y \approx \int_0^1 f(y) \cdot \frac{\partial^2 P_t(x,y)}{\partial y^2} y \dif y.
+        \end{equation*}
+        So the Fokker-Planck equation is 
+        \begin{equation}\label{eqn24}
+            \frac{\partial}{\partial t} P_t(x,y) = \frac{\partial^2}{\partial t^2} P_t(x,y).
+        \end{equation}
+
+        \item[(e)] For the limit process $(M_t: t \ge 0)$ in (d) compute $m(t) = \mbb{E}[M_t]$ and $v(t) = \mbb{E}[M_t^2] - m(t)^2$. Is it a Gaussian process?
+        
+        \textit{ Sol. } Recall $\frac{\dif}{\dif t}\mbb{E}[f(X_t)] = \mbb{E}[\bar{\mathcal{L}f}(X_t)] = \mbb{E} [X_t f''(X_t)]$. Let $f(x) = x$, then we have 
+        \begin{equation*}
+            \frac{\dif}{\dif t} \mbb{E} [X_t] = 0.
+        \end{equation*}
+        So $m(t) = \mbb{E} [M_t] = \mbb{E} [M_0] = m(0)$. 
+
+        Let $f(x) = x^2$, then we have 
+        \begin{equation*}
+            \frac{\dif}{\dif t}\mbb{E}[M_t^2] = \mbb{E} [2 M_t] = 2 \mbb{E} [M_t] = 2m(t) = 2m(0).
+        \end{equation*}
+        So $\mbb{E}[M_t^2] = 2m(0) t + \mbb{E}[M_0^2]$, and as a result, $v(t) = \mbb{E}[M_t^2] - (\mbb{E} [M_t])^2 = 2m(0) t + \mbb{E}[M_0^2] - (\mbb{E} [M_0])^2 = 2m(0) t +  \mbb{VAR} [M_0]$.
+\end{enumerate}

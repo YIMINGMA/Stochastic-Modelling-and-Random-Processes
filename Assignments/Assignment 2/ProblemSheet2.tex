@@ -1,0 +1,97 @@
+\documentclass[a4paper,12pt]{article}
+
+% Math
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\usepackage{amssymb}
+\usepackage{calc}
+\usepackage{bbm}
+\usepackage{commath}
+% Other packages
+\usepackage{geometry}
+\geometry{left=1.5cm,right=1.5cm,top=2cm,bottom=2cm} 
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+
+\urlstyle{same}
+
+\usepackage[
+backend=biber,
+style=alphabetic,
+sorting=ynt
+]{biblatex}
+\addbibresource{ref.bib}
+\usepackage[nottoc]{tocbibind}
+
+\newcommand{\mbb}[1]{\mathbb{#1}}
+\newcommand{\mbbm}[1]{\mathbbm{#1}}
+\newcommand{\mbf}[1]{\pmb{#1}}
+\title{Stochastic Modelling and Random Processes\\ Problem Sheet 2}
+\author{Yiming MA}
+
+\begin{document}
+    \maketitle
+
+    \tableofcontents
+
+    \section{Notations}
+    \begin{itemize}
+        \item All row vectors are represented in a bold font, such as $\mbf{\pi}$, and somtimes, it is also written as $\langle \mbf{\pi} |$ according to the \href{https://en.wikipedia.org/wiki/Bra%E2%80%93ket_notation}{bra–ket notation}.
+        
+        \item All column vectors are represented with an arrow above, such as $\vec{0}$ which is the vector whose elements are all $0$.
+        
+        \item Uppercase letters usually represent a matrix, such as $G$.
+        
+        \item A particular notation, $\mbf{\pi}_t(i)$, means the $i$-th component of the row vector $\mbf{\pi}_t$.
+        
+        \item $\Delta \in \mathbb{R}^n$ is the region $\{\mbf{x} \in \mathbb{R}^n | \mbf{x} \cdot \vec{1} = 1, \, \mbf{x}_i \ge 0,\, i = 1,\cdots,n\}$.
+        
+        \item $\mbf{e}_i$ is the row vector whose $i$-th element is $1$, and all other elements are $0$. For example, 
+        $$\mbf{e}_1 = [1, 0, \cdots , 0].$$
+        (The dimension depends on the context.)
+    \end{itemize}
+
+\input{Q2.1.tex}
+\input{Q2.2.tex}
+\input{Q2.3.tex}
+\input{Q2.4.tex}
+
+\printbibliography[type=article,title={Reference}]
+\end{document}
