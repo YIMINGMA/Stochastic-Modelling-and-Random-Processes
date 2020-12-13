@@ -1,0 +1,21 @@
+\section{Gaussian Processes}
+
+\begin{definition}[Gaussian Processes]
+    Let $X: T \mapsto \mbb{R}$ be a stochasti process. $X(t)$ is called a \textbf{Gaussian process} if $\forall t_1, \cdots, t_n \in T$, $(X(t_1), \cdots, X(t_2))$ is a multivariate Gaussian random vector, i.e. it has the probability density function 
+
+    \begin{equation*}
+        f(x_1, \cdots x_n) = \frac{1}{\sqrt{(2\pi)^n |\Sigma|}} \exp \left( - \frac{1}{2} (\vec{x} - \vec{\mu}^T) \Sigma^{-1} (\vec{x} - \vec{\mu}) \right),
+    \end{equation*}
+
+    for some $\vec{\mu} = [\mu_1, \cdots, \mu_n]^T$ and some positive definite symmetric $n\times n$ matrix $\Sigma$.
+\end{definition}
+
+\begin{proposition}
+    There exist functions $m: T \mapsto \mbb{R}$ and $c:T\times T \mapsto \mbb{R}$ such that $\mu_i = m(t_i)$ and $\Sigma_{i,j} = c(t_i, t_j)$ with $c$ being ``positive definite'' i.e. such that $\Sigma$ is positive definite $\forall t_1, \cdots, t_n \in T$.
+\end{proposition}
+
+\begin{example}[Stationary Ornstein-Uhlenbeck Processes]
+    Let $T = \mbb{R}$, $m(t) = 0$ and $c(t, t') = e^{-|t'-t|}$, then the process is called a \textbf{stationary Ornstein-Uhlenbeck process}.
+\end{example}
+
+One can allow degenerate Gaussians.
