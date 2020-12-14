@@ -10,6 +10,10 @@
     for some $\vec{\mu} = [\mu_1, \cdots, \mu_n]^T$ and some positive definite symmetric $n\times n$ matrix $\Sigma$.
 \end{definition}
 
+\begin{remark}
+    A Guassian process is not necessarily Markov.
+\end{remark}
+
 \begin{proposition}
     There exist functions $m: T \mapsto \mbb{R}$ and $c:T\times T \mapsto \mbb{R}$ such that $\mu_i = m(t_i)$ and $\Sigma_{i,j} = c(t_i, t_j)$ with $c$ being ``positive definite'' i.e. such that $\Sigma$ is positive definite $\forall t_1, \cdots, t_n \in T$.
 \end{proposition}
@@ -18,4 +22,36 @@
     Let $T = \mbb{R}$, $m(t) = 0$ and $c(t, t') = e^{-|t'-t|}$, then the process is called a \textbf{stationary Ornstein-Uhlenbeck process}.
 \end{example}
 
-One can allow degenerate Gaussians.
+One can allow degenerate Gaussians, e.g. Ornstein-Uhlenbeck with specified initial condition $X(0) = 0$, then $f(x_0) = \delta_0(x_0)$, which is not a Gaussian probability density function but can be viewed as the limit of a Gaussian density.
+
+The best way to generate a Gaussian distribution is to use its characteristic function instead of its PDF.
+
+\begin{definition}[Characteristic Functions]
+    Let $\vec{X}$ be a random vector, then its characteristic function is 
+
+    \begin{equation*}
+        \phi(\vec{\theta}):=\E[e^{i \vec{\theta}^T\vec{X}}].
+    \end{equation*}
+\end{definition}
+
+\begin{remark}
+    For a multivariate Gaussian distribution with the mean vector $\vec{\mu}$ and covariance matrix $\mbf{\Sigma}$ (which is allowed to be positive semi-definite), its characteristic function is 
+    
+    \begin{equation*}
+        \phi(\vec{\theta}) = e^{i\vec{\theta}^T \vec{\mu} - \frac{1}{2} \vec{\theta}^T \mbf{\Sigma} \vec{\theta}}.
+    \end{equation*}
+\end{remark}
+
+We can include vector-valued Gaussian processes.
+
+\begin{definition}[Multivariate Gaussian Processes]
+    $\vec{X}:T \mapsto \mbb{R}^n$ is a \textbf{multivariate Gaussian process} if $X: T \times \{1, \cdots, n\} \mapsto \mbb{R}$ is a Gaussian process.
+\end{definition}
+
+\begin{definition}[Stationary Gaussian Processes]
+    Suppose $T = \mbb{R} \times \mbb{K}$. The Gaussian process is \textbf{stationary}, if its mean function $m(t, k)$ is independent of $t$, and its covariance function $c(t, k; t', k')$ is dependent only on $t-t'$ and $k-k'$.
+\end{definition}
+
+\begin{remark}
+    Gaussian processes are great for inference, because $\Prob [\text{parameters} | \text{data}]$ reduces to linear algebra.
+\end{remark}
