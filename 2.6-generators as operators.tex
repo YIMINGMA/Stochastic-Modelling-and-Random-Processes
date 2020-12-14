@@ -1,0 +1,32 @@
+\section{Generators as Operators}
+
+For a continuous-time Markov chain with a countable state space $S$, for any function $f: S \mapsto \mbb{R}$, we have 
+
+\begin{equation*}
+    \E [f(X(t))] = \sum_{x \in S} \mbf{\pi}_t(x) f(x) = \mbf{\pi}_t \vec{f},
+\end{equation*}
+
+where $\vec{f}$ is a column vector of values of $f$ at all the state $x \in S$.
+
+We may be interested in how fast $\E [f(X(t))]$ varies with time $t$, so 
+
+\begin{equation*}
+    \frac{\dif}{\dif t} \E [f(X(t))] = \frac{\dif}{\dif t}\mbf{\pi}_t \vec{f} = \mbf{\pi}_t G \vec{f}.
+\end{equation*}
+
+Thus, we can think of the generator $G$ as acting on the function $f$ by 
+
+\begin{equation*}
+    (Gf) (x) = \sum_{y \in S} G_{x, y} f(y) = \sum_{\substack{y \neq x \\ y \in S}} G_{x, y} (f(y) - f(x)).
+\end{equation*}
+
+This can be extended to $S = \mbb{R}$ by replacing matrices and vectors with operators and functions. For a Brownian motion,
+
+\begin{align*}
+    \frac{\dif}{\dif t} \E [f(X(t))] = & \frac{\partial}{\partial t} \int_\mbb{R} p_t(x, y) f(y) \dif y \\ 
+    = & \int_\mbb{R} \frac{\partial}{\partial t} p_t(x, y) f(y) \dif y \\ 
+    = & \frac{1}{2} \int_\mbb{R} \frac{\partial^2}{\partial y^2} p_t{x, y} f(y) \dif y \\ 
+    = & \E [(\mathcal{L}f)](X(t))]
+\end{align*}
+
+with $(\mathcal{L}f)(x) := \frac{1}{2} f''(x)$, assuming $f$ is twice differentiable and $f(x) \, \& f'(x) \to 0$ as $x \to \pm \infty$
