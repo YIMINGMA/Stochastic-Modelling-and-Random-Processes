@@ -1,0 +1,79 @@
+\section{More on Generators}
+
+The generator $\mathcal{L}$ are defined on functions on the state space but also tell you how probability distributions evolve, using the adjoint $\mathcal{L}^*$. 
+
+Probability distributions are linear functionals on a set of continuous functions $S \mapsto \mbb{R}$, in comparison with row vectors in the case of discrete state space in which a row vector is a linear functional on a set of possible column vectors. Represent a linear functional when $S = \mbb{R}$ by an integral with respect to a probability density $p$:
+\begin{equation*}
+    f \mapsto \int_{\mbb{R}} p(x) f(x) \dif x \in \mbb{R}.
+\end{equation*}
+
+We start from 
+\begin{equation*}
+    \frac{\dif}{\dif t} \E [f(X(t))] = \E [f(X(t))].
+\end{equation*}
+Notice that 
+\begin{equation*}
+    \frac{\dif}{\dif t} \int_\mbb{R} p_t(x, y) f(y) \dif y =  \int_\mbb{R} p_t(x, y) \mathcal{L}f(y) \dif y.
+\end{equation*}
+Suppose we are considering the diffusion process with $\mathcal{L}(f) = af'+ \frac{1}{2} \sigma^2 f''$, and assume $p \, \& \frac{\partial p}{\partial y} \to 0$ as $y \to \infty$. Integrate by parts (twice) to get 
+\begin{align*}
+    \frac{\dif}{\dif t} \int_\mbb{R} p_t(x, y) f(y) \dif y = & \int_\mbb{R} p_t(x, y) \mathcal{L}f(y) \dif y \\ 
+    = & \int_\mbb{R} \left[ - \frac{\partial}{\partial y} \left(a(y, t) p_t(x, y)\right) + \frac{1}{2} \frac{\partial^2}{\partial y^2} \left( \sigma^2(y, t) p_t(x, y) \right) \right] f(y) \dif y,
+\end{align*}
+which  is true for all $f \in C^2(\mbb{R})$. Thus 
+\begin{equation*}
+    \frac{\partial p_t}{\partial t} = - \frac{\partial }{\partial y} \left(a p_t \right) + \frac{1}{2} \frac{\partial^2}{\partial y^2} \left(\sigma^2 p_t \right), 
+\end{equation*}
+which is called the \textbf{Fokker-Planck equation}. Regard $- \frac{\partial }{\partial y} \left(a p_t \right) + \frac{1}{2} \frac{\partial^2}{\partial y^2} \left(\sigma^2 p_t \right)$ as a function of $y$, and denote it as $\mathcal{L}^* p_t$.
+\begin{definition}[The Fokker-Planck equation]
+    The \textbf{Fokker-Planck equation} for a diffusion process is 
+    \begin{equation*}
+        \frac{\partial p_t}{\partial t} = - \frac{\partial }{\partial y} \left(a p_t \right) + \frac{1}{2} \frac{\partial^2}{\partial y^2} \left(\sigma^2 p_t \right).
+    \end{equation*}
+\end{definition}
+
+Suppose the $a, \, \sigma$ are $t$-independent, then we get the stationary density 
+\begin{equation*}
+    p^*(x) = \frac{1}{Z} \exp\left( \int_0^x \frac{2 a(y) - (\sigma^2)'(y)}{\sigma^2(y)} \right) \dif y,
+\end{equation*}
+where $Z$ is the normalisation constant.
+\begin{example}
+    For an Orstein-Uhlenbeck process, 
+    \begin{equation*}
+        p*(x) = \frac{1}{Z} \exp \left( \int_0^x - \frac{2 \alpha y}{\sigma^2} \dif y \right) = \frac{1}{Z} \exp \left( - f\frac{\alpha x^2}{\sigma^2} \right), 
+    \end{equation*}
+    which is the density function of $\mathcal{N} (0, \frac{\sigma^2}{2\alpha})$.
+\end{example}
+
+\begin{proposition}
+    The Fokker-Planck equation is an advection-diffusion equation with diffusion $D = \frac{\sigma^2}{2}$ and advection velocity $v = a - \sigma \sigma'$.
+\end{proposition}
+
+\begin{definition}[The Advection-Diffusion Equation]
+    A general \textbf{advection-diffusion equation} for the density of a conserved quantity $\rho$ is 
+    \begin{equation*}
+        \frac{\partial \rho}{\partial t} + \div (\rho v - D \nabla \rho) = 0.
+    \end{equation*}
+\end{definition}
+
+\begin{remark}
+    For an advection-diffusion equation, the stationary density $\rho$ corresponds to $\div (\rho v - D \nabla \rho) = 0$, so in 1-D
+    \begin{align*}
+        \rho v = & D \nabla \rho \\ 
+        \rho = & \frac{1}{Z} \exp \left( \int_0^x \frac{v(y)}{D(y)} \dif y \right).
+    \end{align*}
+\end{remark}
+
+\begin{definition}[Real Brownian Motions]
+    A \textbf{real Brownian motion} is better modelled by a Langevin equation:
+    \begin{equation*}
+        m \ddot{X} + \gamma \dot{X} = \sigma \xi.
+    \end{equation*}
+\end{definition}
+
+\begin{remark}
+    Note that this is an Ornstein-Uhlenbeck process for the velocity $\dot{X}$, so real Brownian motion is an integrated Ornstein-Uhlenbeck process. It is almost surely differentiabl in contrast to Brownian motion. But as Largvin noted the timescale for the mean reversion of $\gamma$ is about $10^{-8}$ seconds. As a result, if you look on timescales greater than $10^{-8}$ seconds, it looks like the Brownian motion 
+    \begin{equation*}
+        \gamma \dot{X} = \sigma \xi.
+    \end{equation*}
+\end{remark}

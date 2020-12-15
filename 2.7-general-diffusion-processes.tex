@@ -1,0 +1,53 @@
+\section{General Diffusion Processes}
+
+\begin{definition}[General Diffusion Processes]
+    A \textbf{general diffusion process} is a Markov process on $\mbb{R}$ with the generator of the form 
+
+    \begin{equation*}
+        (\mathcal{L}f)(x) = a(x, t) f'(x) + \frac{1}{2} \sigma^2 (x, t) f''(x),
+    \end{equation*}
+
+    for some functions $a$ (which is called the \textbf{drift}) and $\sigma$ (which is called the \textbf{noise}).
+\end{definition}
+
+\begin{example}[Ornstein-Uhlenbeck Processes]
+    An \textbf{Ornstein-Uhlenbeck process} has the generator 
+
+    \begin{equation*}
+        (\mathcal{L}f)(x) = - \alpha x f'(x) + \frac{1}{2} \sigma^2 f''(x),
+    \end{equation*}
+
+    for some $\alpha > 0$ and $\sigma > 0$. The drift is $-\alpha x$, which is \textbf{mean reverting}.
+
+    \begin{remark}
+        We have already seen a definition of the Ornstein-Uhlenbeck process as a Gaussian process. We will also formulate it as a stochastic differential equation 
+
+        \begin{equation*}
+            \frac{\dif X}{\dif t} = - \alpha X + \sigma \xi,
+        \end{equation*}
+
+        where $\xi$ is the Gaussian white noise, or 
+
+        \begin{equation*}
+            \dif X = - \alpha X \dif t + \sigma \dif B \quad (\text{to be explained}).
+        \end{equation*}
+    \end{remark}
+\end{example}
+
+\begin{example}[Brownian Bridges]
+    A \textbf{Brownian bridge} has the generator 
+
+    \begin{equation*}
+        (\mathcal{L}f)(x) = - \frac{x}{1-t} f'(x) + \frac{1}{2} f''(x),
+    \end{equation*}
+
+    which is only defined on $t \in [0, 1)$. 
+
+    Equivalently, it is a Brownian motion conditioned on $B(1) = 0$.
+\end{example}
+
+\begin{example}[Branching Processes]
+    A \textbf{branching process} is a diffusion process with $a(x, t) = \alpha x$ for some constant $\alpha > 0$ and $\sigma^2(x) = \beta x$ for some $\beta > 0$, defined on $x \ge 0$.
+\end{example}
+
+

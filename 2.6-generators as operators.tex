@@ -32,8 +32,8 @@ The idea of generators as operators can be extended to $S = \mbb{R}$ by replacin
 \begin{align*}
     \frac{\dif}{\dif t} \E [f(X(t))] = & \frac{\partial}{\partial t} \int_\mbb{R} p_t(x, y) f(y) \dif y \\ 
     = & \int_\mbb{R} \frac{\partial}{\partial t} p_t(x, y) f(y) \dif y \\ 
-    = & \frac{1}{2} \int_\mbb{R} \frac{\partial^2}{\partial y^2} p_t{x, y} f(y) \dif y \\ 
-    = & \E [(\mathcal{L}f)](X(t))]
+    = & \frac{1}{2} \int_\mbb{R} \frac{\partial^2}{\partial y^2} p_t(x, y) f(y) \dif y \\ 
+    = & \E [(\mathcal{L}f)(X(t))]
 \end{align*}
 
 with $(\mathcal{L}f)(x) := \frac{1}{2} f''(x)$, assuming $f$ is twice differentiable and $f(x) \, \& f'(x) \to 0$ as $x \to \pm \infty$ (integration by parts). $\mathcal{L}$ is the generator but now a linear operator on functions.
@@ -52,5 +52,10 @@ We can obtain the Brownian motion as a scaling limit of a jump process. Take a j
     \left. \frac{\epsilon}{\sigma} X(\frac{t}{\epsilon^2}) \right|_{t \in [0, T]} \xrightarrow{\text{d}} \left. B(t) \right|_{t \in [0, T]}, \; \text{as} \; \epsilon \to 0.
 \end{equation*}
 
-\subsubsection{Generators of Diffusion Processes}
+We can prove this by Taylor expansion of the generator 
 
+\begin{equation*}
+    f(y) = f(x) + (y-x) f'(x) + \frac{1}{2} (y-x)^2 f''(x) + \cdots,
+\end{equation*}
+
+and tightness of the set $S$ of probability distributions for the scaled jump process: $\forall \eta > 0$, $\exists K \in \mbb{R}$ such that for all $\mu \in \bar{S}$, $\mu (K^c) < \eta$.

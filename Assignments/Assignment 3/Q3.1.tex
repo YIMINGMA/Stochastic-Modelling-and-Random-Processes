@@ -15,7 +15,61 @@ and initial condition $X_0 = 0$. \textbf{Geometric Brownian motion} is defined a
 \begin{enumerate}
     \item[(a)] Show that $(Y_t: t \ge 0)$ is a diffusion process on $[0, \infty)$ and compute its generator. Write down the associated SDE and Fokker-Planck equation.
 
-        \textit{ Sol. }
+        \textit{ Sol. } Notice that 
+        \begin{align}
+            \E[(\mathcal{L}_Yf)(Y_t)] = & \frac{\dif}{\dif t} \E [f(Y_t)] \notag \\ 
+            = & \frac{\dif}{\dif t} \E [f(e^{X_t})]. \label{eqn1}
+        \end{align}
+        Let $F = f \circ \exp$, then \eqref{eqn1} becomes
+        \begin{align}
+            \E[(\mathcal{L}_Yf)(Y_t)] = & \frac{\dif}{\dif t} \mbb{E} [f(e^{X_t})]  \notag \\ 
+            = & \frac{\dif}{\dif t} \mbb{E} [F(X_t)] \notag \\ 
+            = & \mbb{E} [(\mathcal{L}_X F)(X_t)]. \label{eqn2}
+        \end{align}
+        Since \eqref{eqn2} holds for all $f \in C^1{\mbb{R}}$, we know 
+        \begin{align*}
+            (\mathcal{L}_Yf)(Y_t) = & (\mathcal{L}_X F)(X_t) \\ 
+            = & \mu \frac{\dif}{\dif x} f(e^{X_t}) + \frac{1}{2} \sigma^2 \frac{\dif ^2}{\dif x^2} f(e^{X_t}) \\ 
+            = & \mu f'(e^{X_t}) e^{X_t} + \frac{1}{2} \sigma^2 \frac{\dif}{\dif x} ( f'(e^{X_t})e^{X_t}) \\ 
+            = & \mu f'(e^{X_t}) e^{X_t} + \frac{1}{2} \sigma^2 (f''(e^{X_t})e^{2X_t} + f'(e^{X_t}) e^{X_t}) \\ 
+            = & \mu f'(Y_t) Y_t + \frac{1}{2}\sigma^2 (f''(Y_t) Y_t^2 + f'(Y_t) Y_t) \\ 
+            = & (\mu + \frac{1}{2} \sigma^2)Y_t f'(Y_t) + \frac{1}{2} (\sigma Y_t)^2 f''(Y_t),
+        \end{align*}
+        which shows $(Y_t: t \ge 0)$ is a diffusion process with the drift $(\mu + \frac{1}{2}\sigma^2) y$ and the diffusion $\sigma y$.
+
+        \begin{eqnarray*}
+            \lefteqn{\int_\mbb{R} \frac{\partial}{\partial t} p_t(x,y) f(y) \dif y} \\ 
+            & = & \frac{\partial}{\partial t} \int_\mbb{R} p_t(x,y) f(y) \dif y \\ 
+            & = & \frac{\partial}{\partial t} \E [f(Y_t)] \\ 
+            & = & \E [(\mathcal{L}_Y f)(Y_t)] \\ 
+            & = & \E \left[(\mu + \frac{1}{2} \sigma^2)Y_t f'(Y_t) + \frac{1}{2} (\sigma Y_t)^2 f''(Y_t)\right] \\ 
+            & = & \int_\mbb{R} \left[ (\mu+\frac{1}{2}\sigma^2) y f'(y) + \frac{1}{2} (\sigma y)^2 f''(y) \right] p_t(x,y) \dif y \\ 
+            & = & (\mu + \frac{1}{2} \sigma^2) \int_\mbb{R} y f'(y) p_t(x, y) \dif y + \frac{1}{2}\sigma^2 \int_\mbb{R} y^2 f''(y) p_t(x, y) \dif y \\ 
+            & = &(\mu + \frac{1}{2} \sigma^2) \int_\mbb{R} y p_t(x,y) \dif f(y) + \frac{1}{2} \sigma^2 \int_\mbb{R} y^2 p_t(x,y) \dif f'(y) \\ 
+            & = & (\mu + \frac{1}{2}\sigma^2) \left\{ \left. yp_t(x,y)f(y) \right|_{y = -\infty}^{y = \infty} - \int_\mbb{R} f(y) \left[p_t(x,y)+ y \frac{\partial}{\partial y} p_t(x, y)\right] \dif y\right\} \\ 
+            & & + \frac{1}{2}\sigma^2 \left\{ \left. y^2p_t(x,y)f'(y) \right|_{y = -\infty}^{y = \infty} - \int_\mbb{R} f'(y) \left[ 2y p_t(x,y) + y^2 \frac{\partial}{\partial y} p_t(x,y) \right] \dif y\right\} \\ 
+            & = & - (\mu + \frac{1}{2}\sigma^2)  \int_\mbb{R} f(y) \left[p_t(x,y)+ y \frac{\partial}{\partial y} p_t(x, y)\right] \dif y - \frac{1}{2} \sigma^2 \int_\mbb{R} f'(y) \left[ 2y p_t(x,y) + y^2 \frac{\partial}{\partial y} p_t(x,y) \right] \dif y \\ 
+            & = & - (\mu + \frac{1}{2}\sigma^2)  \int_\mbb{R} f(y) \left[p_t(x,y)+ y \frac{\partial}{\partial y} p_t(x, y)\right] \dif y -  \frac{1}{2} \sigma^2 \int_\mbb{R} 2y p_t(x,y) + y^2 \frac{\partial}{\partial y} p_t(x,y) \dif f(y) \\ 
+            & = & - (\mu + \frac{1}{2}\sigma^2)  \int_\mbb{R} f(y) \left[p_t(x,y)+ y \frac{\partial}{\partial y} p_t(x, y)\right] \dif y - \frac{1}{2} \sigma^2 \left\{ \left. [2y p_t(x,y) + y^2 \frac{\partial}{\partial y} p_t(x,y)] f(y) \right|_{y = -\infty}^{y = \infty} \right. \\ 
+            & & \left. - \int_\mbb{R} f(y) [2p_t(x,y) + 4y \frac{\partial}{\partial y} p_t(x,y) + y^2 \frac{\partial^2}{\partial y^2} p_t(x,y)] \dif y \right\} \\ 
+            & = & \int_\mbb{R} f(y) \left[ (\frac{1}{2}\sigma^2 - \mu) p_t(x,y) + (\frac{3}{2} \sigma^2 - \mu) y \frac{\partial}{\partial y} p_t(x,y) + \frac{1}{2}\sigma^2y^2\frac{\partial^2}{\partial y^2} p_t(x,y) \right] \dif y,
+        \end{eqnarray*}
+        so the Fokker-Planck equation is
+        \begin{equation*}
+            \frac{\partial}{\partial t} p_t(x,y) = (\frac{1}{2}\sigma^2 - \mu) p_t(x,y) + (\frac{3}{2} \sigma^2 - \mu) y \frac{\partial}{\partial y} p_t(x,y) + \frac{1}{2}\sigma^2y^2\frac{\partial^2}{\partial y^2} p_t(x,y).
+        \end{equation*}
+
+        An easier way is to use the conclusion for a diffusion process directly:
+        \begin{align*}
+            \frac{\partial}{\partial t} p_t(x,y) = & - \frac{\partial}{\partial y} \left[ (\mu + \frac{1}{2}\sigma^2) y p_t \right] + \frac{1}{2} \frac{\partial^2}{\partial y^2} \left(\sigma^2 y^2 p_t \right) \\ 
+            = & - ( \mu + \frac{1}{2} \sigma^2) (p_t + y \frac{\partial}{\partial y}p_t(x,y)) + \frac{1}{2} \sigma^2 \frac{\partial}{\partial y} \left(2 y p_t + y^2 \frac{\partial}{\partial y} p_t(x,y) \right) \\ 
+            = & (\frac{1}{2}\sigma^2 - \mu) p_t(x,y) + (\frac{3}{2} \sigma^2 - \mu) y \frac{\partial}{\partial y} p_t(x,y) + \frac{1}{2}\sigma^2y^2\frac{\partial^2}{\partial y^2} p_t(x,y).
+        \end{align*}
+
+        The associated SDE is 
+        \begin{equation*}
+            d Y_t = (\mu + \frac{1}{2}\sigma^2) Y_t \dif t + \sigma Y_t \dif B_t.
+        \end{equation*}
 
     \item[(b)] Use the evolution equation of expectation values of test functions $f: \mbb{R} \to \mbb{R}$
     
