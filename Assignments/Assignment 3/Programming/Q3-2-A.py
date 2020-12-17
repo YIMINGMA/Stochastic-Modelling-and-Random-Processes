@@ -3,8 +3,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 from statsmodels.distributions.empirical_distribution import ECDF
 np.random.seed(1234)
-plt.rc('text', usetex=True)
-plt.rc('font', family='serif')
 
 m0 = 5
 m = 5
@@ -38,8 +36,8 @@ ks, Pk = degree_distribution(G)
 
 plt.figure(figsize=(15, 5))
 plt.plot(ks, Pk, 'bo', label='Data')
-plt.xlabel(r"$k$", fontsize=20)
-plt.ylabel(r"$P(k)$", fontsize=20)
+plt.xlabel("k", fontsize=20)
+plt.ylabel("P(k)", fontsize=20)
 plt.grid(True)
 plt.tight_layout()
 plt.savefig("degree-distribution.png")
@@ -50,13 +48,13 @@ x = np.linspace(np.min(Count_degree), np.max(Count_degree), 10000)
 plt.plot(range(len(cdf)), 1-cdf, '--', label="One realisation, empirical tail")
 plt.plot(x, x**(-2), label='power law')
 plt.xlabel('degree, k', fontsize=16)
-plt.title('Empirical Tail (1 realisation)', fontsize=16)
 plt.xlim([np.min(Count_degree), np.max(Count_degree)])
 plt.xscale('log')
 plt.yscale('log')
 plt.tight_layout()
 plt.legend(fontsize=12)
-plt.savefig("1-twenty-realisations.png")
+plt.tight_layout()
+plt.savefig("1-realisation.png")
 
 realisations = 20
 degrees = []
@@ -72,7 +70,6 @@ plt.figure(figsize=(15, 5))
 plt.plot(ecdf_deg.x, np.ones(len(ecdf_deg.y))-ecdf_deg.y, '--', label="20 realisations, empirical tail")
 Xx = np.linspace(min(degrees), max(degrees), 1000)
 plt.plot(Xx, Xx**(-2), label='Power law')
-plt.title('Empirical Tail (20 realisations)', fontsize=16)
 plt.legend(fontsize=12)
 plt.xlabel('degree, k', fontsize=16)
 plt.xscale('log')
@@ -80,4 +77,4 @@ plt.yscale('log')
 plt.xlim([np.min(degrees), np.max(degrees)])
 plt.ylim([1e-6, 1])
 plt.tight_layout()
-plt.savefig("20-twenty-realisations.png")
+plt.savefig("20-realisations.png")

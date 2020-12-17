@@ -7,18 +7,33 @@ Consider the Barab\'{a}si-Albert model starting with $m_0 = 5$ connected nodes, 
     
     \textit{ Sol. }
     \lstinputlisting[language=Python]{./Programming/Q3-2-A.py}
-    Running one simulation of the model has the output figure \ref{fig2}.
+    Running one simulation of the model has the output Figure \ref{fig2}. The plot of the degree distribution is in Figure \ref{fig3}, and its tail is Figure \ref{fig4}. As for the $20$ realisations, its tail degree distribution is shown in Figure \ref{fig5}.
     \begin{figure}[!ht]
         \includegraphics[width=18cm]{./Programming/simulation.png}
         \caption{One Simulation of the Barab\'{a}si-Albert Model}
         \label{fig2}
     \end{figure}
-    The plot of the degree distribution is in figure \ref{fig3}.
+    
     \begin{figure}[!ht]
         \includegraphics[width=18cm]{./Programming/degree-distribution.png}
         \caption{Degree Distribution}
         \label{fig3}
     \end{figure}
+
+    \begin{figure}[!ht]
+        \includegraphics[width=18cm]{./Programming/1-realisation.png}
+        \caption{Empirical Degree Distribution for one Realisation}
+        \label{fig4}
+    \end{figure}
+
+    \begin{figure}[!ht]
+        \includegraphics[width=18cm]{./Programming/20-realisations.png}
+        \caption{Empirical Degree Distribution for Twenty Realisations}
+        \label{fig5}
+    \end{figure}
+
+    \newpage
+
     \item[(b)] Compute $k_{nn}(k) = \E \left[ \sum_{i \in V} k_{nn, i} \delta_{k_i, k} / \sum_{i\in V} \delta_{k_i, k}\right]$ where $k_{nn, i} = \frac{1}{k_i} \sum_{j \in V} a_{ij} k_j$, and decide whether the graphs are typically uncorrelated or (dis-)assortative.
     
     \textit{ Sol. }
