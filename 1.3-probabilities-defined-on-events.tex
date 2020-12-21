@@ -1,0 +1,41 @@
+\section{probabilities Defined on Events}
+
+\begin{definition}[The Probability of an Event]
+    Consider an experiment whose sample sapce is $\SS$. For each event $E$ of the sample space $\SS$, we assume that a number $\Prob (E)$ is defined and satisfies the following three conditions:
+    \begin{enumerate}
+        \item[(\textbf{i})] $0 \le \Prob (E) \le 1$. 
+        \item[(\textbf{ii})] $\Prob (\SS) = 1$.
+        \item[(\textbf{iii})] For any sequence of events $E_1, E_2, \cdots$ that are mutually exclusive, that is, events for which $E_n E_m = \emptyset$ when $n \neq m$, then 
+        \begin{equation*}
+            \Prob \left( \cup_{n = 1}^\infty E_n \right) = \sum_{n = 1}^\infty \Prob (E_n)
+        \end{equation*}  
+    \end{enumerate}
+    We refer to $\Prob (E)$ as the \textbf{probability} of the event $E$.
+\end{definition}
+
+\begin{example}
+    In the coin tossing example, if we assume that a head is equally likely to appear as a tail, then we would have 
+    \begin{equation*}
+        \Prob (\{H\}) = \Prob (\{T\}) = \frac{1}{2}.
+    \end{equation*}
+    On the other hand, if we had a biased coin and felt that a head was twice as likely to appear as a tail, then we would have 
+    \begin{equation*}
+        \Prob (\{H\}) = \frac{2}{3}, \quad \Prob (\{T\}) = \frac{1}{3}.
+    \end{equation*}
+\end{example}
+
+\begin{example}
+    In the die tossing example, if we supposed that all six numbers were equally likely to appear, then we would have
+    \begin{equation*}
+        \Prob (\{1\}) = \Prob (\{2\}) = \Prob (\{3\}) = \Prob (\{4\}) = \Prob (\{5\}) = \Prob (\{6\}) = \frac{1}{6}. 
+    \end{equation*}
+    From (iii) it would follow that the probability of getting an even number would equal 
+    \begin{align*}
+        \Prob (\{2, 4, 6\}) = & \Prob(\{2\}) + \Prob(\{4\}) + \Prob(\{6\}) \\ 
+        = & \frac{1}{2}.
+    \end{align*}
+\end{example}
+
+\begin{remark}
+    We have chosen to give a rather formal definition of probabilities as being functions defined on the events of a sample space. However, it turns out that these probabilities have a nice intuitive property. Namely, if our experiment is repeated over and over again then (with probability $1$) the proportion of time that evetn $E$ occurs will just be $\Prob (E)$.
+\end{remark}

@@ -1,4 +1,4 @@
-\documentclass[a4paper,12pt]{report}
+\documentclass[a4paper,12pt]{book}
 
 % Math
 \usepackage{amsmath}
@@ -67,6 +67,7 @@
 \newcommand{\E}{\mathbb{E}}
 \newcommand{\Var}{\mathrm{Var}}
 \newcommand{\Cov}{\mathrm{Cov}}
+\renewcommand{\SS}{\mathcal{S}}
 \renewcommand{\div}{\text{div}}
 
 \theoremstyle{plain}
@@ -74,6 +75,9 @@
 
 \theoremstyle{plain}
 \newtheorem{proposition}{Proposition}[section]
+
+\theoremstyle{plain}
+\newtheorem{corollary}{Corollary}[section]
 
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[section]
@@ -86,10 +90,15 @@
 
 \title{Stochastic Modelling and Random Processes}
 \author{Yiming MA}
+\date{}
 
 \begin{document}
+
 \maketitle
+
 \tableofcontents
+
+\input{1-introduction-to-probability-theory.tex}
 
 \input{1-discrete-time-markov-chains.tex}
 
