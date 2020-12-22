@@ -46,7 +46,7 @@ The definition of independence can be extended to more than two events.
 \end{definition}
 
 \begin{remark}
-    Intuitively, the events $E_1, E_2, \cdots , E_n$ are independent if knowledge of the occurrence of any of these events has no effect on the probability of any other event. But one should notice that \textit{\textcolor{RubineRed}{pairwise independence generally does not indicate joint independence}}.
+    Intuitively, the events $E_1, E_2, \cdots , E_n$ are independent if knowledge of the occurrence of any of these events has no effect on the probability of any other event. But one should notice that \textit{\textcolor{red}{pairwise independence generally does not indicate joint independence}}.
 \end{remark}
 
 \begin{example}[Pairwise Independent Events That Are Not Independent] 
@@ -66,5 +66,16 @@ The definition of independence can be extended to more than two events.
 \begin{example}
     There are $r$ players, with player $i$ initially having $n_i$ units, $n_i > 0$, $i = 1, \cdots , r$. At each stage, two of the players are chosen to play a game, with the winner of the game receiving $1$ unit from the loser. Any player whose fortune drops to $0$ is eliminated, and this continues until a single player has all $n \equiv \sum_{i=1}^r n_i$ units, with that player designated as the victor. Assuming that the results of successive games are independent, and that each game is equally likely to be won by either of its two players, find the probability that player $i$ is the victor.
 
-    \textit{ Sol. }
+    \textit{ Sol. } To begin, suppose that there are $n$ players, with each player initially having $1$ unit. Consider player $i$. Each stage she plays will be equally likely to result in her either winning or losing $1$ unit, with the results from each stage being
+    independent. In addition, she will continue to play stages until her fortune becomes either $0$ or $n$. Because this is the same for all players, it follows that each player has the same chance of being the victor. Consequently, each player has player probability $1 / n$ of being the victor. Now, suppose these $n$ players are divided into
+    $r$ teams, with team $i$ containing $n_i$ players, $i = 1, \cdots , r$. That is, suppose players $1, \cdots, n_1$ constitute team $1$, players $n_1 + 1, \cdots , n_1 + n_2$ constitute team $2$ and so
+    on. Then the probability that the victor is a member of team $i$ is $n_i / n$. But because team $i$ initially has a total fortune of $n_i$ units, $i = 1, \cdots, r$, and each game played by members of different teams results in the fortune of the winner’s team increasing by $1$ and that of the loser’s team decreasing by $1$, it is easy to see that the probability that the victor is from team $i$ is exactly the desired probability. Moreover, our argument also shows that the result is true no matter how the choices of the players in each stage are made.
 \end{example}
+
+\begin{definition}[Independent Trials]
+    Suppose that a sequence of experiments, each of which results in either a ``success'' or a ``failure'', is to be performed. Let $E_i$, $i \ge 1$, denote the event that the $i$th experiment results in a success. If, for all $i_1, i_2, \cdots, i_n$,
+    \begin{equation*}
+        \Prob (E_{i_1}E_{i_2} \cdots E_{i_n}) = \prod_{j=1}^n \Prob(E_{i_j})
+    \end{equation*}
+    we say that the sequence of experiments consists of \textbf{independent trials}.
+\end{definition}

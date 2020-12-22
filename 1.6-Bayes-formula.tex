@@ -1,0 +1,117 @@
+\section{Bayes' Formula}
+
+Let $E$ and $F$ be events. We may express $E$ as 
+\begin{equation*}
+    E = EF \cup EF^c
+\end{equation*}
+because in order for a point to be in $E$, it must either be in both $E$ and $F$ , or it must be in $E$ and not in $F$ . Since $EF$ and $EF^c$ are mutually exclusive, we have that
+\begin{align}
+    \Prob (E) = & \Prob (EF) + \Prob (EF^c) \notag \\ 
+    = & \Prob(E | F) \Prob(F) + \Prob (E | F^c) \Prob(F^c) \notag \\ 
+    = & \Prob(E | F) \Prob(F) + \Prob (E | F^c) \left ( 1 - \Prob(F) \right) \label{eqn 1.7}
+\end{align}
+Eq.\eqref{eqn 1.7} states that the probability of the event $E$ is a weighted average of the conditional probability of $E$ given that $F$ has occurred and the conditional probability of $E$ given that $F$ has not occurred, each conditional probability being given as much weight as the event on which it is conditioned has of occurring.
+
+\begin{example}
+    Consider two urns. The first contains two white and seven black balls,
+    and the second contains five white and six black balls. We flip a fair coin and then draw a ball from the first urn or the second urn depending on whether the outcome was heads or tails. What is the conditional probability that the outcome of the toss was heads given that a white ball was selected?
+
+    \textit{ Sol. } Let $W$ be the event that a white ball is drawn, and let $H$ be the event that the coin comes up heads. The desired probability $\Prob (H |W)$ may be calculated as follows:
+    \begin{align*}
+        \Prob (H | W) = & \frac{\Prob (HW)}{\Prob (W)} \\ 
+        = & \frac{\Prob (W | H) \Prob (H)}{\Prob (W)} \\ 
+        = & \frac{\Prob (W | H) \Prob (H)}{\Prob (W | H) \Prob (H) + \Prob (W | H^c) \Prob (H^c)} \\ 
+        = & \frac{\frac{2}{9} \cdot \frac{1}{2}}{\frac{2}{9} \cdot \frac{1}{2} + \frac{5}{11} \cdot \frac{1}{2}} \\ 
+        = & \frac{22}{67}.
+    \end{align*}
+\end{example}
+
+\begin{example}
+    In answering a question on a multiple-choice test a student either
+    knows the answer or guesses. Let $p$ be the probability that she knows the answer and $1 − p$ the probability that she guesses. Assume that a student who guesses at the answer will be correct with probability $1/m$, where $m$ is the number of multiple-choice alternatives. What is the conditional probability that a student knew the answer to a question given that she answered it correctly?
+
+    \textit{ Sol. } Let $C$ and $K$ denote respectively the event that the student answers the question correctly and the event that she actually knows the answer. Now 
+    \begin{align*}
+        \Prob (K | C) = & \frac{\Prob(KC)}{\Prob(C)} \\ 
+        = & \frac{\Prob (C|K) \Prob (K)}{\Prob (C|K) \Prob (K) + \Prob (C|K^c) \Prob (K^c)} \\ 
+        = & \frac{p}{p + (1/m)(1-p)} \\ 
+        = & \frac{mp}{1 + (m-1)p}.
+    \end{align*}
+    Thus, for example, if $m = 5$, $p = \frac{1}{2}$ , then the probability that a student knew the answer to a question she correctly answered is $\frac{5}{6}$.
+\end{example}
+
+\begin{example}
+    A laboratory blood test is $95$ percent effective in detecting a certain disease when it is, in fact, present. However, the test also yields a ``false positive'' result for $1$ percent of the healthy persons tested. (That is, if a healthy person is tested, then,
+    with probability $0.01$, the test result will imply he has the disease.) If $0.5$ percent of the population actually has the disease, what is the probability a person has the disease
+    given that his test result is positive?
+
+    \textit{ Sol. } Let $D$ be the event that the tested person has the disease, and $E$ the event that his test result is positive. The desired probability $\Prob (D|E)$ is obtained by
+    \begin{align*}
+        \Prob (D | E) = & \frac{\Prob (DE)}{\Prob (E)} \\ 
+        = & \frac{\Prob (E | D) \Prob (D)}{\Prob (E | D) \Prob (D) + \Prob (E | D^c) \Prob (D^c)} \\ 
+        = & \frac{0.95 \cdot 0.005}{0.95 \cdot 0.005 + 0.01 \cdot 0.995} \\ 
+        = & \frac{95}{294} \approx 0.323.
+    \end{align*}
+    Thus, only $32$ percent of those persons whose test results are positive actually have the disease.
+\end{example}
+
+Eq.\eqref{eqn 1.7} can be generalized to the finite or countably infinite case.
+
+\begin{definition}[Partitions]
+    Let $\{ F_i | i \in \mathcal{I} \}$ be a collection of events. If
+    \begin{itemize}
+        \item $F_i \neq \emptyset$, $\forall i \in \mathcal{I}$,
+        \item $F_i \cap F_j = \emptyset$, $\forall i, j \in \mathcal{I}, i \neq j$,
+        \item $\bigcup\limits_{i \in \mathcal{I}} F_i = \SS$,
+    \end{itemize}
+    then $\{ F_i | i \in \mathcal{I} \}$ is a \textbf{partition} of the sample space $\SS$.
+\end{definition}
+
+\begin{theorem}[The Law of Total Probability]
+    Let $\{ F_i | i \in \mathcal{I} \}$ be a finite or a countably infinite partition of the sample space $\SS$, then for any event $E$, we have 
+    \begin{equation}\label{eqn 1.8}
+        \Prob (E) = \sum_{\substack{i \in \mathcal{I} \\ \Prob(F_i) > 0}} \Prob (E | F_i) \Prob (F_i).
+    \end{equation}
+    
+    \begin{proof}
+        \begin{align*}
+            \Prob (E) = & \Prob (E \cap \SS) \\ 
+            = & \Prob \left(E \bigcap \left(\bigcup\limits_{i\in\mathcal{I}} F_i \right) \right) \\ 
+            = & \Prob \left( \bigcup\limits_{i \in \mathcal{I}} \left( E \cap F_i \right) \right) \\ 
+            = & \sum_{i \in \mathcal{I}} \Prob (E \cap F_i) \\ 
+            = & \sum_{\substack{i \in \mathcal{I} \\ \Prob(F_i) > 0}} \Prob (E \cap F_i) \\ 
+            = & \sum_{\substack{i \in \mathcal{I} \\ \Prob(F_i) > 0}} \Prob (E | F_i) \Prob (F_i).
+        \end{align*}
+    \end{proof}
+\end{theorem}
+
+Thus, Eq.\eqref{eqn 1.8} shows how, for given events $F_1, F_2 , \cdots , F_n, \cdots$ of which one and only one must occur, we can compute $\Prob(E)$ by first ``conditionin'' upon which one of the $F_i$ occurs. That is, it states that $\Prob(E)$ is equal to a weighted average of $\Prob (E|F_i)$, each term being weighted by the probability of the event on which it is conditioned.
+
+Suppose now that $E$ has occurred and we are interested in determining which one of the $F_j$ also occurred.
+
+\begin{theorem}[Bayes' Formula]
+    Let $\{ F_i | i \in \mathcal{I} \}$ be a finite or a countably infinite partition of the sample space $\SS$, then for any event $E$ ($ \Prob (E) > 0$) and $F_j$ ($\Prob (F_j) > 0$, otherwise $\Prob (F_j | E) = 0$) we have 
+    \begin{equation} \label{eqn 1.9}
+        \Prob (F_j | E) = \frac{\Prob (E | F_j) \Prob (F_j)}{\sum\limits_{\substack{i \in \mathcal{I} \\ \Prob (F_i) > 0}} \Prob (E | F_i) \Prob (F_i)}.
+    \end{equation}
+
+    \begin{proof}
+        \begin{align*}
+            \Prob (F_j | E) = & \frac{\Prob (E F_j)}{\Prob (E)} \\ 
+            = & \frac{\Prob (E | F_j) \Prob (F_j)}{\Prob (E)} \\ 
+            = & \frac{\Prob (E | F_j) \Prob (F_j)}{\sum\limits_{\substack{i \in \mathcal{I} \\ \Prob (F_i) > 0}} \Prob (E | F_i) \Prob (F_i)}.
+        \end{align*}
+    \end{proof}
+\end{theorem}
+
+\begin{example}
+    You know that a certain letter is equally likely to be in any one of
+    three different folders. Let $\alpha_i$ be the probability that you will find your letter upon making a quick examination of folder $i$ if the letter is, in fact, in folder $i$, $i = 1, 2, 3$. (We may have $\alpha_i < 1$.) Suppose you look in folder $1$ and do not find the letter. What is the probability that the letter is in folder $1$?
+
+    \textit{ Sol. } Let $F_i$, $i = 1,2,3$ be the event that the letter is in folder $i$, and let $E$ be the event that a search of folder $1$ does not come up with the letter. We desire $\Prob (F_1 | E)$. From Bayes' formula \eqref{eqn 1.9} we obtain 
+    \begin{align*}
+        \Prob (F_1 | E) = & \frac{\Prob (E | F_1) \Prob (F_1)}{\sum_{i = 1}^3 \Prob (E | F_i) \Prob (F_i)} \\ 
+        = & \frac{(1 - \alpha_1) \frac{1}{3}}{(1 - \alpha_1)\frac{1}{3} + \frac{1}{3} + \frac{1}{3}} \\ 
+        = & \frac{1 - \alpha_1}{3 - \alpha_1}.
+    \end{align*}
+\end{example}

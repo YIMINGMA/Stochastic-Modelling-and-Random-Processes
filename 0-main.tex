@@ -10,7 +10,9 @@
 \usepackage{commath}
 % Other packages
 \usepackage{geometry}
-\geometry{left=1.5cm,right=1.5cm,top=2cm,bottom=2cm} 
+\geometry{left=1.5cm,right=1.5cm,top=2cm,bottom=2cm}
+\flushbottom
+\vbadness=10000 
 \usepackage{graphicx}
 \usepackage{enumitem}
 \usepackage{listings}
@@ -99,6 +101,8 @@
 \tableofcontents
 
 \input{1-introduction-to-probability-theory.tex}
+
+\input{2-random-variables.tex}
 
 \input{1-discrete-time-markov-chains.tex}
 
