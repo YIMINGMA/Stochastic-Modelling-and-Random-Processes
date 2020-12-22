@@ -1,0 +1,98 @@
+\section{Conditional probabilities}
+
+Suppose that we toss two dice and that each of the $36$ possible outcomes is equally likely to occur and hence has probability $\frac{1}{36}$. Suppose that we observe that the first die is a four. Then, given this information, what is the probability that the sum of the two dice equals six? To calculate this probability we reason as follows: Given that
+the initial die is a four, it follows that there can be at most six possible outcomes of our experiment, namely, $(4, 1), (4, 2), (4, 3), (4, 4), (4, 5)$, and $(4, 6)$. Since each of these outcomes originally had the same probability of occurring, they should still have equal probabilities. That is, given that the first die is a four, then the (conditional) probability of each of the outcomes $(4, 1), (4, 2), (4, 3), (4, 4), (4, 5), (4, 6)$ is $\frac{1}{6}$ while the (conditional) probability of the other $30$ points in the sample space is $0$. Hence, the desired probability will be $\frac{1}{6}$.
+
+If we let $E$ and $F$ denote, respectively, the event that the sum of the dice is six and the event that the first die is a four, then the probability just obtained is called the conditional probability that $E$ occurs given that $F$ has occurred and is denoted by
+\begin{equation*}
+    \Prob (E | F)
+\end{equation*}
+A general formula for $\Prob (E|F)$ that is valid for all events $E$ and $F$ is derived in the same manner as the preceding. Namely, if the event $F$ occurs, then in order for $E$ to occur it is necessary for the actual occurrence to be a point in both $E$ and in $F$ , that is, it must be in $EF$. Now, because we know that $F$ has occurred, it follows that $F$ becomes our new sample space and hence the probability that the event $EF$ occurs will equal the probability of $EF$ relative to the probability of $F$. That is,
+\begin{equation} \label{eqn 1.5}
+    \Prob (E | F) = \frac{\Prob (EF)}{\Prob (F)}.
+\end{equation}
+Note that Eq.\eqref{eqn 1.5} is only well defined when $\Prob (F) > 0$ and hence $\Prob (E|F)$ is only defined when $\Prob (F) > 0$.
+
+\begin{example}
+    Suppose cards numbered one through ten are placed in a hat, mixed up,and then one of the cards is drawn. If we are told that the number on the drawn card is at least five, then what is the conditional probability that it is ten?
+
+    \textit{ Sol. } Let $E$ denote the event that the number of the drawn card is ten, and let $F$ be the event that it is at least five. The desired probability is $\Prob (E|F)$. Now, from Eq.\eqref{eqn 1.5} 
+    \begin{equation*}
+        \Prob (E | F) = \frac{\Prob(EF)}{\Prob(F)}.
+    \end{equation*}
+    However, $EF = E$ since the number of the card will be both ten and at least five if and only if it is number ten. Hence, 
+    \begin{equation*}
+        \Prob (E | F) = \frac{\frac{1}{10}}{\frac{6}{10}} = \frac{1}{6}.
+    \end{equation*}
+\end{example}
+
+\begin{example}
+    A family has two children. What is the conditional probability that both are boys given that at least one of them is a boy? Assume that the sample space $\SS$ is given by $\SS = \{ (b, b), (b, g), (g, b), (g, g) \}$, and all outcomes are equally likely. ($(b, g)$ means, for instance, that the older child is a boy and the younger child a girl.)
+
+    \textit{ Sol. } Letting $B$ denote the event that both children are boys, and $A$ the event that at least one of them is a boy, then the desired probability is given by
+    \begin{align*}
+        \Prob (B | A) = & \frac{\Prob(BA)}{\Prob(A)} \\ 
+        = & \frac{ \Prob (\{ (b,b) \})}{\Prob (\{ (b,b), (b,g), (g,b)\})}
+        = \frac{\frac{1}{4}}{\frac{3}{4}} 
+        = \frac{1}{3}.
+    \end{align*}
+\end{example}
+
+\begin{example}
+    Bev can either take a course in computers or in chemistry. If Bev takes the computer course, then she will receive an A grade with probability $\frac{1}{2}$; if she takes the chemistry course then she will receive an A grade with probability $\frac{1}{3}$. Bev decides
+    to base her decision on the flip of a fair coin. What is the probability that Bev will get an A in chemistry?
+
+    \textit{ Sol. } If we let $C$ be the event that Bev takes chemistry and $A$ denote the event that she receives an A in whatever course she takes, then the desired probability is $\Prob (AC)$. This is calculated by using Eq.\eqref{eqn 1.5} as follows:
+    \begin{align*}
+        \Prob(AC) = & \Prob (C) \Prob (A | C) \\ 
+        = & \frac{1}{2} = \frac{1}{6}.
+    \end{align*}
+\end{example}
+
+\begin{example}
+    Suppose an urn contains seven black balls and five white balls. We
+    draw two balls from the urn without replacement. Assuming that each ball in the urn is equally likely to be drawn, what is the probability that both drawn balls are black?
+
+    \textit{ Sol. } Let $F$ and $E$ denote, respectively, the events that the first and second balls drawn are black. Now, given that the first ball selected is black, there are six remaining black balls and five white balls, and so $\Prob (E|F) = \frac{6}{11}$. As $\Prob (F)$ is
+    clearly $\frac{7}{12}$, our desired probability is 
+    \begin{align*}
+        \Prob (EF) = & \Prob (E) \Prob (F | E) \\ 
+        = & \frac{7}{12} \cdot \frac{6}{11} = \frac{42}{132}.
+    \end{align*}
+\end{example}
+
+\begin{example}
+    Suppose that each of three men at a party throws his hat into the center of the room. The hats are first mixed up and then each man randomly selects a hat. What is the probability that none of the three men selects his own hat?
+
+    \textit{ Sol. } We shall solve this by first calculating the complementary probability that at least one man selects his own hat. Let us denote by $E_i, i = 1, 2, 3$, the event that the $i$th man selects his own hat. To calculate the probability $\Prob (E_1 \cup E_2 \cup E_3)$, we first note that
+    \begin{align}
+        \Prob (E_i) = & \frac{1}{3},  \quad i = 1,2,3 \notag \\ 
+        \Prob (E_i E_j) = & \frac{1}{6}, \quad i \neq j \label{eqn 1.6} \\ 
+        \Prob (E_1 E_2 E_3) = & \frac{1}{6}. \notag
+    \end{align}
+    To see why Eq.\eqref{eqn 1.6} is correct, consider first 
+    \begin{equation*}
+        \Prob(E_i E_j) = \Prob (E_i) \Prob (E_j | E_i)
+    \end{equation*}
+    Now $\Prob (E_i)$, the probability that the $i$th man selects his own hat, is clearly $\frac{1}{3}$ since he is equally likely to select any of the three hats. On the other hand, give that the $i$th man selected his own hat, then there remain two hats that the $j$th man may select, and as one of these two is his own hat, it follows that with probability $\frac{1}{2}$ he will select it. That is, $\Prob (E_j|E_i) = \frac{1}{2}$ and so 
+    \begin{equation*}
+        \Prob (E_i, E_j) = \Prob (E_i) \Prob (E_j | E_i) = \frac{1}{3} \cdot \frac{1}{2} = \frac{1}{6}. 
+    \end{equation*}
+    To calculate $\Prob(E_1 E_2 E_3)$ we write 
+    \begin{align*}
+        \Prob (E_1 E_2 E_3) = & \Prob (E_1  E_2) \Prob (E_3 | E_1 E_2) \\ 
+        = & \frac{1}{6} \Prob (E_3 | E_1 E_2).
+    \end{align*}
+    However, given that the first tow men get their own hats it follows that the third man must also get his own hat (since there  are no other hats left). That is $\Prob (E_3 | E_1 E_2) = 1$ and so 
+    \begin{equation*}
+        \Prob (E_1 E_2 E_3) = \frac{1}{6}.
+    \end{equation*}
+    Now from Eq.\eqref{eqn 1.4} we have 
+    \begin{align*}
+        \Prob (E_1 \cup E_2 \cup E_3) = & \Prob (E_1) + \Prob (E_2) + \Prob (E_3) - \Prob (E_1 E_2) \\ 
+        & - \Prob (E_1 E_3) - \Prob (E_2 E_3) + \Prob (E_1 E_2 E_3) \\ 
+        = & 1 - \frac{1}{2} + \frac{1}{6} \\ 
+        = & \frac{2}{3}.
+    \end{align*}
+    Hence, the probability that none of the men selects his own hat is $1 - \frac{2}{3} = \frac{1}{3}$.
+\end{example}

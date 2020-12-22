@@ -39,3 +39,106 @@
 \begin{remark}
     We have chosen to give a rather formal definition of probabilities as being functions defined on the events of a sample space. However, it turns out that these probabilities have a nice intuitive property. Namely, if our experiment is repeated over and over again then (with probability $1$) the proportion of time that evetn $E$ occurs will just be $\Prob (E)$.
 \end{remark}
+
+\begin{proposition}
+    For any event $E$, we have
+    \begin{equation}\label{eqn 1.1}
+        \Prob (E^c) = 1 - \Prob (E).
+    \end{equation}
+    \begin{proof}
+        Since the events $E$ and $E^c$ are always mutually exclusive and since $E \cup E^c = S$, we have by (ii) and (iii) that 
+        \begin{equation*}
+            1 = \Prob (S) = \Prob (E \cup E^c) = \Prob (E) + \Prob (E^c).
+        \end{equation*}
+    \end{proof}
+\end{proposition}
+
+\begin{remark}
+    In words, Eq.\eqref{eqn 1.1} states that the probability that an event does not occur is one minux the probability that it does occur.
+\end{remark}
+
+We shall now derive a formula for $\Prob (E \cup F)$, the probability of all outcomess either in $E$ or $F$. To do so, consider $\Prob (E) + \Prob (F)$, which is the probability of all outcomes in $E$ plus the probability of all points in $F$. Since any outcome that is in both $E$ and $F$ will be counted twice in $\Prob (E) + \Prob (F)$ and only once in $\Prob (E \cap F)$, we must have 
+\begin{equation*}
+    \Prob (E) + \Prob (F) = \Prob (E \cup F) + \Prob (EF),
+\end{equation*}
+or equiavlently, 
+\begin{equation*}
+    \Prob (E \cup F) = \Prob (E) + \Prob(F) - \Prob (EF).
+\end{equation*}
+
+\begin{proposition}
+    For any two events $E$ and $F$, we have 
+    \begin{equation}\label{eqn 1.2}
+        \Prob ( E \cup F) = \Prob (E) + \Prob (F) - \Prob (EF).
+    \end{equation}
+    \begin{proof}
+        By $E \cup F = E \cup [F / (E \cap F)]$, we have 
+        \begin{align*}
+            \Prob (E \cup F) = & \Prob (E \cup / [F / (E \cap F)]) \\ 
+            = & \Prob (E) + \Prob \left(F / (E \cap F)\right) \\ 
+            = & \Prob (E) + \Prob (F) - \Prob (E \cap F).
+        \end{align*}
+    \end{proof}
+\end{proposition}
+
+\begin{remark}
+    Note that when $E$ and $F$ are mutually exclusive (that is, when $EF = \emptyset$), then Eq.\eqref{eqn 1.2} states that 
+    \begin{align*}
+        \Prob (E \cup F) = & \Prob (E) + \Prob (F) - \Prob (\emptyset) \\ 
+        = & \Prob (E) + \Prob (F).
+    \end{align*}
+\end{remark}
+
+\begin{example}
+    Suppose that we toss two coins, and suppose that we assume that each of the four outcomes in the sample space 
+    \begin{equation*}
+        \SS = \{ (H,H), (H,T), (T,H), (T,T) \}
+    \end{equation*}
+    is equally likely and hence has probability $\frac{1}{4}$. Let 
+    \begin{equation*}
+        E = \{(H,H)\} \quad \text{and} \quad F = \{(H,H), (T,H)\}.
+    \end{equation*}
+    That is, $E$ is the event that the first coin falls heads, and $F$ is the event that the second coin falls heads. 
+
+    By Eq.\eqref{eqn 1.2} we have that $\Prob (E \cup F)$, the probability that either the first or the second coin falls heads, is given by 
+    \begin{align*}
+        \Prob (E \cup F) = & \Prob (E) + \Prob (F) - \Prob (EF) \\ 
+        = & \frac{1}{2} + \frac{1}{2} = \Prob (\{ (H, H) \}) \\ 
+        = & 1 - \frac{1}{4} \\ 
+        = & \frac{3}{4}.
+    \end{align*}
+    This probability cound, of course, have been computed directly since 
+    \begin{equation*}
+        \Prob (E \cup F) = \Prob ( \{ (H, H), (H,T), (T,H) \}) = \frac{3}{4}.
+    \end{equation*}
+\end{example}
+
+We may also calculate the probability that any one of the three events $E$ or $F$ or $G$ occurs. This is done as follows:
+\begin{equation*}
+    \Prob( E \cup F \cup G) = \Prob \left( (E \cup F) \cup G\right) 
+\end{equation*}
+which by Eq.\eqref{eqn 1.2} equals
+\begin{equation*}
+    \Prob (E \cup F) + \Prob(G) - \Prob \left( (E \cup F) G \right).
+\end{equation*}
+It is easy to check that $(E \cup F) G  = (EG) \cup (FG)$. (Remember for two sets $A$ and $B$, $A = B \iff A \subset B \; \& \; B \subset A$.) Hence the preceding equals 
+\begin{eqnarray}
+    \lefteqn{\Prob(E \cup F \cup G)} \notag \\ 
+    & = & \Prob(E) + \Prob(F) - \Prob(EF) + \Prob(G) - \Prob(EG \cup FG) \notag \\ 
+    & = & \Prob(E) + \Prob(F) - \Prob(EF) + \Prob(G) - \Prob (EG) - \Prob (FG) + \Prob(EG \cap FG) \notag \\ 
+    & = & \Prob(E) + \Prob(F) - \Prob(EF) + \Prob(G) - \Prob (EG) - \Prob (FG) + \Prob(EFG) \label{eqn 1.3}
+\end{eqnarray}
+
+\begin{proposition}
+    In fact, it can be shown by induction that, for any $n$ events $E_1, E_2,E_3, \cdots, E_n$, 
+    \begin{align}
+        \Prob (E_1 \cup E_2 \cup \cdots \cup E_n) = & \sum_{i} \Prob (E_i) - \sum_{i < j} \Prob (E_i E_j) + \sum_{i < j < k} \Prob (E_i E_j E_k) \notag \\ 
+        & - \sum_{i < j < k < l} \Prob (E_i E_j E_k E_l) \notag \\ 
+        & + \cdots + (-1)^{n+1}  \Prob (E_1 E_2 \cdots E_n). \label{eqn 1.4}
+    \end{align}
+    This identity is called the \textbf{inclusion-exclusion identity}.
+\end{proposition}
+
+\begin{remark}
+    In words, the inclusion-exclusion identity states that the probability of the union of $n$ events equals the sum of the probability of these events taken one at a time minus the sum of the probabilities of these events taken two at a time plus the sum of the probabilities of these events taken three at a time, and so on.
+\end{remark}

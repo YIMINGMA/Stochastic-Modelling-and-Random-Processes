@@ -1,0 +1,70 @@
+\section{Independent Events}
+
+\begin{definition}[Independence of $2$ Events]
+    Two events $E$ and $F$ are said to be \textbf{independent} of 
+    \begin{equation*}
+        \Prob (EF) = \Prob (E) \Prob (F).
+    \end{equation*}
+\end{definition}
+
+\begin{remark}
+    By Eq.\eqref{eqn 1.5} this implies that $E$ and $F$ are independent if $\Prob (E|F) = \Prob (E)$ (which also implies that $\Prob (F|E) = \Prob (F)$). That is, $E$ and $F$ are independent if knowledge that $F$ has occurred does not affect the probability that $E$ occurs. That is, the occurrence of $E$ is independent of whether or not $F$ occurs.
+\end{remark}
+
+\begin{definition}[Dependence of $2$ Events]
+    Two events $E$ and $F$ that are not independent are said to be \textbf{dependent}.
+\end{definition}
+
+\begin{example}
+    Suppose we toss two fair dice. Let $E_1$ denote the event that the sum of the dice is six and $F$ denote the event that the first die equals four. Then
+    \begin{equation*}
+        \Prob (E_1 F) = \Prob (\{ 4, 2 \}) = \frac{1}{36} 
+    \end{equation*}
+    while 
+    \begin{equation*}
+        \Prob(E_1)\Prob(F) = \frac{5}{36} \cdot \frac{1}{6} = \frac{5}{216}
+    \end{equation*}
+    and hence $E_1$ and $F$ are not independent. Intuitively, the reason for this is clear for if we are interested in the possibility of throwing a six (with two dice), then we will be quite happy if the first die lands four (or any of the numbers $1$, $2$, $3$, $4$, $5$) because then we still have a possibility of getting a total of six. On the other hand, if the first die landed six, then we would be unhappy as we would no longer have a chance of getting a total of six. In other words, our chance of getting a total of six depends on the outcome of the first die and hence $E_1$ and $F$ cannot be independent.
+
+    Let $E_2$ be the event that the sum of the dice equals seven. Is $E_2$ independent of $F$? The answer is yes since
+    \begin{equation*}
+        \Prob (E_2F) = \Prob (\{(4,3)\}) = \frac{1}{36}
+    \end{equation*}
+    while
+    \begin{equation*}
+        \Prob(E_2) \Prob(F) = \frac{1}{6} \cdot \frac{1}{6} = \frac{1}{36}.
+    \end{equation*}
+\end{example}
+
+The definition of independence can be extended to more than two events. 
+
+\begin{definition}[Independence of $n$ Events]
+    The events $E_1$, $E_2$, $\cdots$, $E_n$ are said to be \textbf{independent} if for every subset $E_{1'}, E_{2'}, \cdots, E_{r'}$, $r \le n$, of these events 
+    \begin{equation*}
+        \Prob (E_{1'}E_{2'} \cdots E_{r'}) = \Prob(E_{1'}) \Prob(E_{2'}) \cdots \Prob(E_{r'}).
+    \end{equation*}
+\end{definition}
+
+\begin{remark}
+    Intuitively, the events $E_1, E_2, \cdots , E_n$ are independent if knowledge of the occurrence of any of these events has no effect on the probability of any other event. But one should notice that \textit{\textcolor{RubineRed}{pairwise independence generally does not indicate joint independence}}.
+\end{remark}
+
+\begin{example}[Pairwise Independent Events That Are Not Independent] 
+    Let a ball be drawn from an urn containing four balls, numbered $1$, $2$, $3$, $4$. Let $E = \{1, 2\}$, $F = \{1, 3\}$, $G = \{1, 4\}$. If all four outcomes are assumed equally likely, then
+    \begin{align*}
+        \Prob (EF) & = \frac{1}{4} = \Prob (E) \Prob (F) \\ 
+        \Prob (EG) & = \frac{1}{4} = \Prob (E) \Prob (G) \\ 
+        \Prob (FG) & = \frac{1}{4} = \Prob (F) \Prob (G).
+    \end{align*}
+    However, 
+    \begin{equation*}
+        \frac{1}{4} = \Prob (EFG) \neq \Prob (E) \Prob (F) \Prob(G).
+    \end{equation*}
+    Hence, even though the events $E$, $F$, $G$ are pairwise independent, they are not jointly independent.
+\end{example}
+
+\begin{example}
+    There are $r$ players, with player $i$ initially having $n_i$ units, $n_i > 0$, $i = 1, \cdots , r$. At each stage, two of the players are chosen to play a game, with the winner of the game receiving $1$ unit from the loser. Any player whose fortune drops to $0$ is eliminated, and this continues until a single player has all $n \equiv \sum_{i=1}^r n_i$ units, with that player designated as the victor. Assuming that the results of successive games are independent, and that each game is equally likely to be won by either of its two players, find the probability that player $i$ is the victor.
+
+    \textit{ Sol. }
+\end{example}
