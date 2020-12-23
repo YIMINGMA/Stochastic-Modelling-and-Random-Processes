@@ -1,9 +1,0 @@
-\section{Random Variables}
-
-It frequently occurs that in performing an experiment we are mainly interested in some functions of the outcome as opposed to the outcome itself. For instance, in tossing dice we are often interested in the sum of the two dice and are not really concerned about the actual outcome. That is, we may be interested in knowing that the sum is seven and not be concerned over whether the actual outcome was $(1, 6)$ or $(2, 5)$ or $(3, 4)$ or $(4, 3)$ or $(5, 2)$ or $(6, 1)$. These quantities of interest, or more formally, these real-valued functions defined on the sample space, are known as random variables. 
-
-\begin{definition}[Random Variables]
-    Let $(\SS, \mathcal{F}(\SS), \Prob)$ be a probability space. $X:\SS \mapsto \mbb{R}$ is a \textbf{random variable} if $X^{-1}([a,b]) := \left\{ \omega \in \SS| X(\omega) \in [a,b] \right\} \in \mathcal{F}$, $\forall a, b \in \mbb{R}$, $a < b$. In other words, $X$ is $\mathcal{F}$-measurable.
-\end{definition}
-
-Since the value of a random variable is determined by the outcome of the experiment, we may assign probabilities to the possible values of the random variable.
