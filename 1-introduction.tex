@@ -1,0 +1,46 @@
+\chapter{Introduction}
+
+\section{Motivation}
+
+Suppose we are modelling COVID. Let 
+\begin{itemize}
+    \item \textcolor{myblue}{$S$ be he number of the susceptible;}
+    \item \textcolor{myblue}{$I$ be the number of the infected;}
+    \item \textcolor{myblue}{$R$ be the number of the removed (those who have either recovered or died).}
+\end{itemize}
+
+\subsection{A Deterministic Model}
+
+\textcolor{myblue}{
+    A deterministic model might be
+    \begin{align*}
+        \dot{S} = & - \beta I S, \\ 
+        \dot{I} = & \beta I S - \gamma I, \\ 
+        \dot{R} = & \gamma I.
+    \end{align*}
+}
+\textcolor{myorange}{
+    But there are some problems in this model:
+    \begin{itemize}
+        \item $S$, $I$ and $R$ are integers, so it does not make sense to talk about $\dot{S}$, $\dot{I}$ and $\dot{R}$. 
+        \item There is variability in when contacts are made and lead to infection.
+    \end{itemize}
+}
+
+\subsection{A Stochastic Model}
+
+A better model might be \textcolor{myblue}{stochastic
+    \begin{align*}
+        \prob{S \to S-1 \; \& \; I \to I-1 \; \text{in} \; \Delta t} = &\beta I S \Delta t + o(\Delta t) \\ 
+        \prob{I \to I-1 \; \& \; R \to R+1 \; \text{in} \; \Delta t} = & \gamma I \Delta t + o(\Delta t).
+    \end{align*}
+}
+\textcolor{myorange}{The problem of this model is that contacts are usually not made uniformally in the whole population.}
+
+\subsection{A Network Model}
+
+\textcolor{myblue}{We can use a network model, in which nodes represent individuals and edge weights represent contact rates, to avoid uniform contacts. }\textcolor{myorange}{But tis is unrealistic: the network is too big to represent 60 million people in the UK.}
+
+\subsection{A Random Network Model}
+
+\textcolor{myblue}{Based on the network model, we can make probability distributions on networks and derive probabilistic conclusions over the combination of stochastic dynamics and randomness of networks.}

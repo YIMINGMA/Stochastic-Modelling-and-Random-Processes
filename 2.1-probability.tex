@@ -1,0 +1,28 @@
+\section{Probability Theory}
+
+Suppose we are doing an experiment which have different random outcomes.
+
+\begin{definition}[Sample Spaces]
+    The \textbf{sample space} of the experiment is the set of all possible outcomes, denoted as $\Omega$.
+\end{definition}
+
+\begin{definition}[Sigma Algebra]
+    The $\mbf{\sigma}$\textbf{-algebra} of subsets of $\Omega$, denoted as $\mathcal{F}$, is a set of subsets of $\Omega$ which satisfies:
+    \begin{itemize}
+        \item $\Omega \in \mathcal{F}$;
+        \item $A \in \mathcal{F} \implies A^c \in \mathcal{F}$;
+        \item $\{ A_i | i \in \mathcal{I} \} \subset \mathcal{F}$ with $\mathcal{I}$ being countable $\implies \bigcup\limits_{i \in \mathcal{I}} A_i \in \mathcal{F}$.
+    \end{itemize}
+\end{definition}
+
+\begin{remark}
+    We say $\mathcal{I}$ is countable if there exists a one-to-one map from $\mathcal{I}$ into $\mbb{Z}$, so ``countable'' includes ``finite''.
+\end{remark}
+
+\begin{example}
+    If $\Omega$ is countable, we usually take \textcolor{myblue}{$\mathcal{F} = 2^\Omega$}, which is the \textcolor{myblue}{power set of $\Omega$}.
+\end{example}
+
+\begin{example}
+    When $\Omega$ is not countable, e.g. $[0,1]$, if you allow \href{https://en.wikipedia.org/wiki/Axiom_of_choice}{Axiom of Choice}, then there exist unmeasurable subsets, and 
+\end{example}
