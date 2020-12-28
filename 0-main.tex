@@ -70,56 +70,10 @@
 
 \newcommand{\mbb}[1]{\mathbb{#1}}
 \newcommand{\mbf}[1]{\pmb{#1}}
-
-% notations of probability, expectation, variance and covariance.
-\NewDocumentCommand{\prob}{ s O{} > {\SplitArgument{1}{|}}m }
-{
-    \mbb{P}
-    \IfBooleanTF{#1}
-    { \PPauto #3 }
-    { \PPfixed {#2} #3 }
-}
-
-\NewDocumentCommand{\E}{ s O{} > {\SplitArgument{1}{|}}m }
-{
-    \mbb{E}
-    \IfBooleanTF{#1}
-    { \PPauto #3 }
-    { \PPfixed {#2} #3 }
- }
-
-\NewDocumentCommand{\Var}{ s O{} > {\SplitArgument{1}{|}}m }
-{
-    \mathrm{Var}
-    \IfBooleanTF{#1}
-    { \PPauto #3 }
-    { \PPfixed {#2} #3 }
-}
-
-\NewDocumentCommand{\Cov}{ s O{} > {\SplitArgument{1}{|}}m }
-{
-    \mathrm{Cov}
-    \IfBooleanTF{#1}
-    { \PPauto #3 }
-    { \PPfixed {#2} #3 }
-}
-
-\NewDocumentCommand{\PPauto}{mm}
-{
-   \left(
-   \IfNoValueTF{#2} { #1 } { #1 \;\middle|\; #2 }
-   \right)
-}
-
-\NewDocumentCommand{\PPfixed}{mmm}
-{
-   \mathopen{#1(}
-   \IfNoValueTF{#3} { #2 } { #2 \mathrel{#1|} #3 }
-   \mathclose{#1)}
-}
-
-
-\newcommand{\SampleSpace}{\mathcal{S}}
+\newcommand{\prob}{\mbb{P}}
+\newcommand{\E}{\mbb{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
 \newcommand{\divergence}{\text{div}}
 
 % declare a new theorem style
@@ -194,4 +148,17 @@
 \input{1-introduction.tex}
 
 \input{2-probability-and-random-variables.tex}
+
+\input{3-discrete-time-markov-chain.tex}
+
+\input{4-continuous-time-markov-chain.tex}
+
+\input{5-continuous-state-space-markov-processes.tex}
+
+\input{6-stochastic-particle-systems.tex}
+
+\input{7-networks.tex}
+
+\input{8-random-networks.tex}
+
 \end{document}

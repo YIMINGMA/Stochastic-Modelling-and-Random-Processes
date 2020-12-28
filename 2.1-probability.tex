@@ -24,5 +24,51 @@ Suppose we are doing an experiment which have different random outcomes.
 \end{example}
 
 \begin{example}
-    When $\Omega$ is not countable, e.g. $[0,1]$, if you allow \href{https://en.wikipedia.org/wiki/Axiom_of_choice}{Axiom of Choice}, then there exist unmeasurable subsets, and 
+    When $\Omega$ is not countable, e.g. $[0,1]$, if you allow \href{https://en.wikipedia.org/wiki/Axiom_of_choice}{Axiom of Choice} \footnote{A Cartesian product of a collection of nonempty sets is nonempty.}, then there exist unmeasurable subsets, and we exclude them from $\mathcal{F}$, i.e. $\mathcal{F}$ is the set of all Lebesgue-measurable subsets on $[0,1]$.
 \end{example}
+
+\begin{definition}[Events]
+    The members of $\mathcal{F}$ are called \textbf{events}.
+\end{definition}
+
+\begin{definition}[Probability]
+    $\prob[\cdot]: \mathcal{F} \mapsto \mbb{R}$ is called a probability if
+    \begin{itemize}
+        \item $\prob[A] \in [0,1]$, $\forall A \in \mathcal{F}$;
+        \item $\prob[\Omega] = 1$;
+        \item $\prob[\cdot]$ satisfies the \textbf{countable additivity}: $\forall \{A_i | i \in \mathcal{I} \} \subset \mathcal{F}$, where $\mathcal{I}$ is a countable set, if $A_i$'s are disjoint, then 
+        \begin{equation*}
+            \prob \left[ \bigcup_{i \in \mathcal{I}} A_i \right] = \sum_{i \in \mathcal{I}} \prob \left[A_i\right].
+        \end{equation*}
+    \end{itemize}
+\end{definition}
+
+\begin{definition}[Independence]
+    Say $A, B \in \mathcal{F}$ are \textbf{independent} if
+    \begin{equation*}
+        \prob \left[ A \cap B \right] = \prob [A] \prob [B].
+    \end{equation*}
+\end{definition}
+
+\begin{definition}[Conditional Probabilities]
+    If $\prob [B] > 0$, then the \textbf{conditional probability} $\prob \left[ A | B \right]$ is defined by 
+    \begin{equation*}
+        \prob \left[ A | B \right] = \frac{\prob [A \cap B]}{\prob [B]}, \quad \forall A \in \mathcal{F}.
+    \end{equation*}
+\end{definition}
+
+\begin{definition}[Partitions]
+    $\{ B_i | i \in \mathcal{I} \}$ is called a \textbf{partition} of the sample space $\Omega$ if:
+    \begin{itemize}
+        \item $B_i$'s are \textbf{pairwise disjoint}: $B_i \cap B_j = \emptyset$, $\forall i, j \in \mathcal{I}$, $i \neq j$;
+        \item $B_i \neq \emptyset$, $\forall i \in \mathcal{I}$;
+        \item $\{ B_i | i \in \mathcal{I} \}$ \textbf{covers} $\Omega$: $\bigcup_{i\in \mathcal{I}} B_i = \Omega$.
+    \end{itemize}
+\end{definition}
+
+\begin{theorem}[The Law of Total Probability]
+    Let $\{ B_i | i \in \mathcal{I} \}$ be a countable partition of $\Omega$, with $B_i \in \mathcal{F}$ and $\prob \left[ B_i \right] > 0$, $\forall i \in \mathcal{I}$. Then $\forall A \subset \mathcal{F}$, we have 
+    \begin{equation*}
+        \prob \left[ A \right] = \sum_{i \in \mathcal{I}} \prob \left[ A | B_i \right] \prob \left[ B_i \right].
+    \end{equation*}
+\end{theorem}
