@@ -1,0 +1,141 @@
+\section{Discrete-Time Markov Chains}
+
+\begin{definition}[Discrete-Time Stocastic Processes]
+    A \textbf{discrete-time stochastic process} with state space $S$ is a sequence $\{ Y_n | n \in \mbb{N} \}$ of random variables taking values in $S$.
+\end{definition}
+
+\begin{definition}[Discrete-Time Markov Chains]
+    Let $\{ X_n | n \in \mbb{N} \}$ be a discrete-time stochastic process with a discrete state space $S$. The process is called a \textbf{Markov chain}, if for all $A \subset S$, $n \in \mbb{N}$ and $s_0, \cdots, s_n \in S$, 
+    \begin{equation*}
+        \prob \left[ X_{n+1} \in A | X_n = s_n , \cdots X_0 = s_0 \right] = \prob \left[ X_{n+1} \in A | X_n = s_n \right]. 
+    \end{equation*}
+\end{definition}
+
+\begin{proposition}
+    For any Markov chain $\{ X_n | n \in \mbb{N} \}$, conditional on the present, the past and the future are independent, i.e. $\forall n \in \mbb{N}_+$, $\forall s_n \in S$, $X_{n+1} | X_n = s$ and $X_{n-1} | X_n = s$ are independent. 
+\end{proposition}
+\begin{proof}
+    \begin{eqnarray*}
+        \lefteqn{\prob \left[ X_{n+1} = s_{n+1}, X_{n-1} = s_{n-1} | X_n = s_n \right]}\\ 
+        & = & \frac{\prob \left[ X_{n-1} = s_{n-1}, X_n = s_n, X_{n+1} = s_{n+1} \right] }{\prob \left[ X_n = s_n \right]} \\ 
+        & = & \prob \left[ X_{n-1} = s_{n-1} \right] \cdot \prob \left[ X_n = s_n | X_{n-1} = s_{n-1} \right] \cdot \prob \left[ X_{n+1} = s_{n+1} | X_n = s_n, X_{n-1} = s_{n-1} \right] \cdot \frac{1}{\prob \left[ X_n = s_n \right] } \\ 
+        & = & \prob \left[ X_{n-1} = s_{n-1} \right] \cdot \prob \left[ X_n = s_n | X_{n-1} = s_{n-1} \right] \cdot \prob \left[ X_{n+1} = s_{n+1} | X_n = s_n \right] \cdot \frac{1}{\prob \left[ X_n = s_n \right] } \\ 
+        & = & \prob \left[ X_{n-1} = s_{n-1} \right] \cdot \frac{\prob \left[ X_{n-1} = s_{n-1} | X_{n} = s_n \right] \cdot \prob \left[ X_n = s_n \right]}{\prob \left[ X_{n-1} = s_{n-1} \right]} \cdot \prob \left[ X_{n+1} = s_{n+1} | X_n = s_n \right] \cdot \frac{1}{\prob \left[ X_n = s_n \right] } \\ 
+        & = & \prob \left[ X_{n-1} = s_{n-1} | X_n = s_n \right] \cdot \prob \left[ X_{n+1} = s_{n+1} | X_n = s_n \right]
+    \end{eqnarray*}
+\end{proof}
+
+\subsection{Homogeneity}
+
+\begin{definition}[Homogeneity]
+    A Markov chain $\{ X_n | n \in \mbb{N} \}$ is \textbf{homogeneous} if for all $A \subset S$, $n \in \mbb{N}$ and $s \in S$, 
+    \begin{equation*}
+        \prob \left[ X_{n+1} \in A | X_n = s \right] = \prob \left[ X_1 \in A | X_0 = s \right].
+    \end{equation*}
+\end{definition}
+
+\begin{example}[Random Walk with Boundaries]
+    Let $\{ X_n | x \in \mbb{N} \}$ be a \textbf{simple random walk} on $S = \{ 1, \cdots L \}$ with $p(x,y) = p \delta_{y, x+1} + q \delta_{y, x-1}$. The boundary conditions are 
+    \begin{itemize}
+        \item \textbf{\textcolor{myblue}{periodic}} if $p(L,1) = p$, $p(1,L) = q$,
+        \item \textbf{\textcolor{myblue}{absorbing}} if $p(L,L) = 1$, $p(1,1) = 1$,
+        \item \textbf{\textcolor{myblue}{closed}} if $p(L,L) = p$, $p(1,1) = q$,
+        \item \textbf{\textcolor{myblue}{reflecting}} if $p(L, L-1) = 1$, $p(1,2) = 1$.
+    \end{itemize}
+\end{example}
+
+\subsection{Transition Matrices and Transition Functions}
+
+\begin{definition}[One-Step Transition Matrices]
+    For a homogeneous discrete-time Markov chain $\{X_n | n \in \mbb{N}\}$ taking values in $\{s_1, s_2, s_3, \cdots, s_n, \cdots\}$, its \textbf{one-step transition matrix} $P$ is defined as
+    \begin{equation*}
+        P_{i,j} = \prob \left[ X_{n+1} = s_j | X_n = s_i \right].
+    \end{equation*}
+\end{definition}
+
+\begin{remark}
+    The sum of each row of a one-step transition matrix is $1$, i.e. 
+    \begin{equation*}
+        P \left| 1 \right> = \left| 1 \right>.
+    \end{equation*}
+\end{remark}
+
+\begin{proposition}
+    Let $\pi_{0}(\cdot)$ be the probability mass function of $X_0$, then
+    \begin{equation*}
+        \prob \left[ X_0 = s_0, X_1 = s_1, \cdots, X_n = s_n \right] = \pi_{0} (s_0) P_{s_0, s_1} \cdots P_{s_{n-1}, s_n}.
+    \end{equation*} 
+    If we use a row vector $\left< \mbf{\pi}_{0} \right| $ to represent the probability distribution of $X_0$, such that $\left< {\mbf{\pi}_{0}} \right|_i = \prob \left[ X_0 = s_i \right]$, then the probability distribution of $X_n$ can be represented as
+    \begin{equation*}
+        \left< \mbf{\pi}_{n}  \right| = \left< \mbf{\pi}_{0} \right| P^n.
+    \end{equation*}
+\end{proposition}
+
+
+\begin{definition}[Transition Functions]
+    The transition matrix of $\{X_n | n \in \mbb{N}\}$ can be written into the \textbf{transition function} $p_n(x,y)$ instead:
+    \begin{equation*}
+        p_n(x,y) := \prob \left[ X_n = y | X_0 = x \right].
+    \end{equation*}
+\end{definition}
+
+\subsection{Chapman-Kolmogorov Equations}
+
+\begin{theorem}[Chapman-Kolmogorov Equations]
+    For a homegeneous discrete-time Markov chain $\{X_n | n \in \mbb{N}\}$, its transition function fulfills the \textbf{Chapman-Kolmogorov equations}
+    \begin{equation*}
+        p_{k+n}(x,y) = \sum_{z \in S} p_k(x,z) p_n(z, y) \quad \text{for all} \; k, n \ge 0, \; x, y \in S.
+    \end{equation*}
+\end{theorem}
+
+\begin{remark}
+    In matrix form, the Chapman-Kolmogorov equations read 
+    \begin{equation*}
+        P_{n+k} = P_n P_k \quad \text{and in particular} \quad P_{n+1} = P_n P_1.
+    \end{equation*}
+\end{remark}
+
+\begin{corollary}
+    Let $P_n$ be the $n$-step transition matrix of a homogeneous discrete-time Markov chain $\{X_n | n \in \mbb{N}\}$, then 
+    \begin{equation*}
+        P_n = P^n \quad \& \quad P_0 = I.
+    \end{equation*}
+\end{corollary}
+
+\subsection{Stationary Distributions}
+
+\begin{definition}[Stationarity]
+    Let $\{ X_n | n \in \mbb{N} \}$ be a homogeneous discrete-time Markoc chain with state space $S$. The distribution $\pi(x)$, $x \in S$, is called \textbf{stationary} if for all $y \in S$
+    \begin{equation*}
+        \sum_{x \in S} \pi(x) p(x,y) = \pi(y),
+    \end{equation*}
+    or 
+    \begin{equation*}
+        \left< \mbf{\pi} \right| P = \left< \mbf{\pi} \right|.
+    \end{equation*}
+\end{definition}
+
+\begin{remark}
+    If $\mbf{\pi}$ is a stationary distribution, then it is a left eigenvector with eigenvalue $1$.
+\end{remark}
+
+\begin{remark}
+    To solve the stationary distributions, we can solve 
+    \begin{equation*}
+        \begin{cases}
+            \left< \mbf{\pi} \right| P & = \left< \mbf{\pi} \right| \\ 
+            \left< \mbf{\pi} | \mbf{1} \right > & = 1
+        \end{cases}
+    \end{equation*}
+\end{remark}
+
+\begin{theorem}
+    Every homogeneous finite discrete-time Markov chain has a stationary distribution.
+\end{theorem}
+\begin{proof}
+    $P \left| \mbf{1} \right> = \left| \mbf{1} \right> \implies$ $P$ has an eigenvalue $1$, so $P$ also has a left eigenvector with eigenvalue $1$, i.e. $\left< \mbf{\pi} \right| \neq \left< \mbf{0} \right|$. Then normalize it to make $\left< \mbf{\pi} | \mbf{1} \right> = 1$.
+\end{proof}
+
+\begin{remark}
+    There can be more than one stationary distributions, and a convex combination of two stationary distributions is also a stationary distribution.
+\end{remark}

@@ -72,3 +72,29 @@ Suppose we are doing an experiment which have different random outcomes.
         \prob \left[ A \right] = \sum_{i \in \mathcal{I}} \prob \left[ A | B_i \right] \prob \left[ B_i \right].
     \end{equation*}
 \end{theorem}
+
+\begin{theorem}[Bayes' Rule]
+    For any events $A$ and $B$, if $\prob [A] > 0$ and $\prob [B] > 0$, then 
+    \begin{equation*}
+        \prob \left[ B | A \right] = \frac{\prob \left[ A | B \right] \prob [B]}{\prob [A]}.
+    \end{equation*}
+    Furthermore, if $\{B_i | i \in \mathcal{I} \}$ is a countable partition of $\Omega$, with $B_i \in \mathcal{F}$ and $\prob \left[ B_i \right] > 0$, $\forall i \in \mathcal{I}$, then 
+    \begin{equation*}
+        \prob \left[ B_i | A \right] = \frac{\prob \left[ A | B_i \right] \prob[B_i]}{ \sum_{i\in\mathcal{I}} \prob \left[ A | B_i \right] \prob \left[ B_i \right]}.
+    \end{equation*}
+\end{theorem}
+
+\begin{example}
+    Suppose the \textcolor{myblue}{true positive rate} $\prob \left( \text{tests positive} | \text{has COVID}\right)$ is $0.99$ and the \textcolor{myblue}{false positive rate} $\prob \left( \text{tests positive} | \text{does not have COVID} \right)$ is $0.01$. Suppose in the population, the probability of getting contracted with COVID is $0.001$, i.e. $\prob \left( \text{has COVID} \right) = 0.001$, what is the probability that a person has COVID given his/her test is positive?
+
+    \textit{ Sol. }
+    \begin{eqnarray*}
+        \lefteqn{\prob \left(\text{has COVID} | \text{tests positive} \right)} \\ 
+        & = & \frac{ \prob \left( \text{tests positive} | \text{has COVID} \right) \prob \left( \text{has COVID} \right)}{\prob (\text{tests positive})} \\ 
+        & = & \prob \left( \text{tests positive} | \text{has COVID} \right) \prob \left( \text{has COVID} \right) \\ 
+        & & \div \left[ \prob \left(\text{tests positive} | \text{has COVID} \right) \prob \left(\text{has COVID}\right) \right. \\
+        & & \left. + \prob \left(\text{tests positive} | \text{does not have COVID} \right) \prob \left(\text{does not have COVID}\right) \right] \\ 
+        & = & \frac{0.99 \times 0.001}{0.99 \times 0.001 + 0.01 \times (1-0.001)} \\ 
+        & \approx & 0.090.
+    \end{eqnarray*}
+\end{example}

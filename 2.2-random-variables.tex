@@ -1,0 +1,165 @@
+\section{Random Variables}
+
+\begin{definition}[Measurable Functions]
+    Let $(\Omega, \mathcal{F}), \prob)$ and $(\mbb{R}, \Sigma, \mathcal{L})$ be two measurable spaces, where $\mathcal{L}$ is the Lebesgue measure. For any function $f: \Omega \mapsto \mbb{R}$, if it satisfies $\forall A \in \Sigma$, $f^{-1}(A) \in \mathcal{F}$, then $f$ is said to be \textbf{measurable}.
+\end{definition}
+
+\begin{remark}
+    $(\Omega, \mathcal{F}, \prob)$ and $(\mbb{R}, \Sigma, \mathcal{L})$ can be generalized:
+
+    \textcolor{myblue}{Let $(X, \Sigma)$ and $(Y, T)$ be measurable spaces, meaning that $X$ and $Y$ are sets equipped with respective $\sigma$-algebras $\Sigma$ and $T$. A function $f:X\mapsto Y$ is said to be \textbf{measurable} if for every $E \in T$ the pre-image of $E$ under $f$ is in $\Sigma$; i.e. $\forall E \in T$,
+    \begin{equation*}
+        f^{-1}(E) := \{ x \in X | f(x) \in E \} \in \Sigma.
+    \end{equation*}}
+\end{remark}
+
+\begin{definition}[Random Variables]
+    A \textbf{random variable} is a measurable function $X: \Omega \mapsto \mbb{R}$.
+\end{definition}
+
+\begin{definition}[Cumulative Distribution Functions]
+    The \textbf{cumulative distribution function} of a random variable $X$ is defined as 
+    \begin{equation*}
+        F(x) = \prob \left[ X \le x \right] 
+    \end{equation*}
+\end{definition}
+
+\begin{definition}[Discrete Random Variables]
+    If $X(\Omega)$ is countable, then $X$ is called \textbf{discrete}.
+\end{definition}
+
+\begin{definition}[Probability Mass Functions]
+    The \textbf{probability mass function} of a discrete random variable $X$ is defined as 
+    \begin{equation*}
+        \pi(x) = \prob \left[ X = x \right], \quad \forall x \in X(\Omega).
+    \end{equation*}
+\end{definition}
+
+\begin{definition}[Continuous Random Variables \& Probability Density Functions] 
+    For a random variable $X$, if its cumulative distribution function satisfies
+    \begin{equation*}
+        F(x) = \int_{-\infty}^x f(y) \dif y
+    \end{equation*}
+    for some $f \in \mathcal{L}^1(\mbb{R})$, then $X$ is said to be \textbf{continuous}, and $f$ is its \textbf{probability density function}.
+\end{definition}
+
+\begin{remark}
+    It is possible to have mixtures. For example, $X$ can have a positive probability on a particular point and continuous parts on other points.
+\end{remark}
+
+\begin{definition}[Expectation]
+    The \textbf{expectation} of a random variable $X$ is
+    \begin{equation*}
+        \E [X] := \int_{\Omega} X \dif \prob = \begin{cases}
+            \sum_{x \in X(\Omega)} x \pi (x) & \quad X \; \text{is discrete} \\ 
+            \int_{X(\Omega)} x f(x) \dif x & \quad X \; \text{is continuous}
+        \end{cases}
+    \end{equation*}
+\end{definition}
+
+\begin{remark}
+    The expectation may be infinite or even undefined.
+\end{remark}
+
+\begin{definition}[Variance]
+    The \textbf{variance} of a random variable $X$ is 
+    \begin{equation*}
+        \Var [X] := \E \left[ (X - \E [X])^2 \right] = \E \left[X^2\right] - \E [X]^2.
+    \end{equation*}
+\end{definition}
+
+\begin{definition}[Covariance]
+    The \textbf{covariance} of two random variables $X$ and $Y$ is
+    \begin{equation*}
+        \Cov [X, Y] = \E \left[(X - \E [X])(Y - \E [Y])\right] = \E [XY] - \E[X]\E[Y].
+    \end{equation*}
+\end{definition}
+
+\begin{definition}[Uncorrelated Random Variables]
+    If $\Cov [X, Y] = 0$, then $X$ and $Y$ are called uncorrelated. 
+\end{definition}
+
+\begin{proposition}
+    If $X$ and $Y$ are two independent random variables, then they are also uncorrelated. But the opposite is generally not true, except for Gaussians.
+\end{proposition}
+
+We can extend to random viarbles taking values in $\mbb{R}^n$.
+\begin{itemize}
+    \item For \textcolor{myblue}{cumulative distribution functions}, use the component-wise $\le$ instead.
+    \item For $\Var [X]$, use $\E [ (X - \E[X]) (X - \E[X])^T]$ which is a $n \times n$ matrix.
+    \item For $\Cov [X,Y]$, use $\E [ (X - \E[X]) (Y - \E[Y])^T]$.
+    \item $X$ and $Y$ are independent if events $\{X \le x\}$, $\{Y \le y\}$ are independent, $\forall x, y$.
+    \begin{itemize}
+        \item For $X, Y$ being discrete, this is equivalent to $\pi (x, y) = \pi^X(x) \pi^Y(y)$.
+        \item For $X, Y$ being continuous, this is equivalent to $f(x, y) = f^X(x) f^Y(y)$.
+    \end{itemize}  
+\end{itemize}   
+
+\begin{theorem}[The Weak Law of Large Numbers]
+    Let $X_k$, $k = 1, 2, \cdots, X_n, \cdots$ be independent and identically distributed random variables with $\mu = \E [X_k] < \infty$, then 
+    \begin{equation*}
+        \bar{X}_n := \frac{1}{n} \sum_{k=1}^n X_k \xrightarrow{\text{d}} \mu, \; \text{as} \; n \to \infty,
+    \end{equation*}
+    where $\xrightarrow{\text{d}}$ means \textbf{\textcolor{myblue}{convergence in distribution}} \footnote{Also called \textbf{\textcolor{myblue}{convergence in law}}.}. This means the CDF of $\bar{X}_n$ converges to the CDF of $\mu$.
+
+    Equivalently, 
+    \begin{equation*}
+        \E \left[ g \left( \bar{X}_n \right) \right] \to g(\mu), \; \text{as} \; n \to \infty,
+    \end{equation*}
+    for any bounded and continuous function $g$. This type of convergence is called the \textbf{\textcolor{myblue}{weak onvergence}}.
+
+    Or $\bar{X}_n$ converges to $\mu$ \textbf{\textcolor{myblue}{in probability ($\bar{X}_n \xrightarrow{\prob} \mu$)}}:
+    \begin{equation*}
+        \prob \left[ \left| \bar{X}_n - \mu \right| > \epsilon \right] \to 0, \; \text{as} \; n \to \infty, \; \forall \epsilon > 0.
+    \end{equation*}
+\end{theorem}
+
+\begin{theorem}[The Strong Law of Large Numbers]
+    Let $X_k$, $k = 1, 2, \cdots, X_n, \cdots$ be independent and identically distributed random variables with $\mu = \E [X_k] < \infty$, then 
+    \begin{equation*}
+        \bar{X}_n \xrightarrow{\text{a.s.}} \mu, 
+    \end{equation*}
+    where the \textbf{\textcolor{myblue}{almost surely convergence}} means 
+    \begin{equation*}
+        \prob \left[ \lim_{n\to\infty} \bar{X}_n = \mu \right] = 1.
+    \end{equation*}
+\end{theorem}
+
+\begin{theorem}[Central Limit Theorem]
+    Let $X_k$, $k = 1, 2, \cdots, X_n, \cdots$ be independent and identically distributed random variables with $\mu = \E [X_k] < \infty$ and $0 < \sigma^2 := \Var [X_k] <\infty$, then 
+    \begin{equation*}
+        \frac{\sqrt{n}}{\sigma} \left( \bar{X}_n - \mu \right) \xrightarrow{\text{d}} \mathcal{N}(0,1).
+    \end{equation*}
+\end{theorem}
+
+\begin{theorem}[Large Deviation Principle]
+    Let $X_k$, $k = 1, 2, \cdots, X_n, \cdots$ be independent and identically distributed random variables. For any interval $J \subset \mbb{R}$, 
+    \begin{equation*}
+        \prob \left[ \bar{X}_n \in J \right] \approx \exp \left( - n \min_{x \in J} I (x) \right),
+    \end{equation*}
+    meaning 
+    \begin{equation*}
+        \frac{1}{n} \log \prob \left[ \bar{X}_n \in J \right] \to - \min_{x \in J} I (x).
+    \end{equation*}
+    If we know the probability distribution of $X_k$, an explicit expression for the rate function can be obtained. This is given by a \href{https://en.wikipedia.org/wiki/Convex_conjugate}{Legendre–Fenchel transformation},
+    \begin{equation*}
+        I(x) = \sup_{\theta > 0} \theta x - \lambda(\theta),
+    \end{equation*}
+    where $\lambda (\theta) = \log \E \left[ e^{\theta X_k} \right]$ is called the \textbf{\textcolor{myblue}{cumulant generating function (CGF)}}.
+\end{theorem}
+
+\begin{definition}[Stochastic Processes]
+    A \textbf{stochastic process} $\{X(t)| t \in T\}$ is a collection of random variables. That is, for each $t \in T$, $X(t)$ is a random variable. 
+    
+    \begin{itemize}
+        \item The index $t$ is often interpreted as time and, as a result, we refer to $X(t)$ as the \textbf{state} of the process at time $t$. 
+        \item The set $T$ is called the \textbf{index set} of the process. 
+        \begin{itemize}
+            \item When $T$ is a countable set, the process is said to be a \textbf{discrete-time} process.
+            \item If $T$ is an inverval of the real line, the stochastic process is said to be a \textbf{continuous-time} process.
+        \end{itemize}
+        \item The \textbf{state space} of a stochastic process is defined as the set of all possible values that the random variables $X(t)$ can assume.
+    \end{itemize}
+    
+\end{definition}
+
