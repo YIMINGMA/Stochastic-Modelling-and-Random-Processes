@@ -133,9 +133,38 @@
     Every homogeneous finite discrete-time Markov chain has a stationary distribution.
 \end{theorem}
 \begin{proof}
-    $P \left| \mbf{1} \right> = \left| \mbf{1} \right> \implies$ $P$ has an eigenvalue $1$, so $P$ also has a left eigenvector with eigenvalue $1$, i.e. $\left< \mbf{\pi} \right| \neq \left< \mbf{0} \right|$. Then normalize it to make $\left< \mbf{\pi} | \mbf{1} \right> = 1$.
+    Let 
+    \begin{equation*}
+        \Delta = \left\{ \left< \mbf{\pi} \right| \big | \mbf{\pi}_i \ge 0, \left<\mbf{\pi} | \mbf{1} \right> = 1 \right\}
+    \end{equation*}
+    Then $P_{i,j} \ge 0$ and $P \left| \mbf{1} \right> = \left| \mbf{1} \right>$, so $\mbf{\pi} \in \Delta \implies \left< \mbf{\pi} \right| P \in \Delta$. Notice that $\Delta$ is compact and convex, and $P$ is continuous (linear), so by the \href{https://en.wikipedia.org/wiki/Brouwer_fixed-point_theorem}{Brouwer's Fixed-Point Theorem}, $P$ has a fixed point $\left< \mbf{\pi}^* \right| \in \Delta$, such that $\left< \mbf{\pi}^* \right| P = \left< \mbf{\pi}^* \right|$.
 \end{proof}
 
 \begin{remark}
-    There can be more than one stationary distributions, and a convex combination of two stationary distributions is also a stationary distribution.
+    There can be more than one stationary distributions. For example, if a Markov chian has two parts with no transitions between them, then let $\left<\mbf{\pi}_1\right|$ and $\left< \mbf{\pi}_2 \right|$ be stationary probabilities of them, and any convex combination of $\left<\mbf{\pi}_1\right|$ and $\left< \mbf{\pi}_2 \right|$ is a stationary distribution.
 \end{remark}
+
+\begin{definition}[Cycles]
+    A \textbf{cycle} is a closed path in $S$ along the graph of allowed transitions by $P$, and its length is greater than $0$.
+\end{definition}
+
+\begin{definition}[Transience \, \& \, Recurrence]
+    Say $i \in S$ is \textbf{transient} if there does not exists any cycle through $i$. Otherwise, $i$ is \textbf{recurrent}.
+\end{definition}
+
+\begin{definition}[Communication]
+    Say $i,j \in S$ communicate with each other if there exist a cycle through $i$ and $j$, denoted as $i \leftrightsquigarrow j$.
+\end{definition}
+
+\begin{proposition}
+    Communication is an equivalent relation on the set of all recurrent states:
+    \begin{itemize}
+        \item $i \leftrightsquigarrow i$, $\forall i \in S$;
+        \item $i \leftrightsquigarrow j \iff j \leftrightsquigarrow i$, $\forall i,j \in S$;
+        \item $i \leftrightsquigarrow j \leftrightsquigarrow k \implies i \leftrightsquigarrow k$, $\forall i,j,k \in S$.
+    \end{itemize}
+\end{proposition}
+
+\begin{definition}[Classes, Comminucating Components]
+    A \textbf{class} (also called a \textbf{comminucating component}) is a set of all comminucating states in the state space.
+\end{definition}
