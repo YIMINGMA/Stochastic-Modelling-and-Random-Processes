@@ -1,0 +1,36 @@
+\section{Countable Markov Chains}
+
+One can extend much of what we have done for finite discrete-time Markov chains to the countably infinite case, e.g. simple random walk on $\mbb{Z}$, but some results become more subtle. For example, SRW is not SP ergodic, despite being irreducible. (Actually, it even fails to have a stationary probability.) Also, it is not periodic; it has a period $2$. So, one has to refine various concepts. 
+
+\begin{definition}[Transience \& Recurrence]
+    Let $T_x := \inf \{ t \ge 1 : X_n = x \}$. Then the state $x \in S$ is 
+    \begin{itemize}
+        \item \textbf{transient}, if 
+        \begin{equation*}
+            \prob \left[ T_x = \infty | X_0 = x \right] > 0;
+        \end{equation*}
+        \item \textbf{null recurrence} if 
+        \begin{equation*}
+            \prob \left[ T_x < \infty | X_0 = x \right] = 1 \quad \& \quad \E \left[ T_x | X_0 = x \right] = \infty;
+        \end{equation*}
+        \item \textbf{positive recurrence} if 
+        \begin{equation*}
+            \prob \left[ T_x < \infty | X_0 = x \right] = 1 \quad \& \quad \E \left[ T_x | X_0 = x \right] < \infty.
+        \end{equation*}
+    \end{itemize}
+\end{definition}
+
+\begin{remark}
+    If $x\in S$ is transient, then with probability $1$ that $X_n$ comes back to $x$ only finite many times.
+\end{remark}
+
+\begin{proposition}
+    A communicating class is either null recurrent or positive recurrent.
+\end{proposition}
+
+\begin{theorem}
+    An absorbing component has a stationary probability if and only if it is positive recurrent. Furthermore, it is unique, and 
+    \begin{equation*}
+        \pi(x) = \frac{1}{\E [T_x | X_0 = x]}
+    \end{equation*}
+\end{theorem}

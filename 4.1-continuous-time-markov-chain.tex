@@ -1,0 +1,264 @@
+\section{Continuous-Time Markov Chains}
+
+\begin{definition}[Continuous-Time Markov Chains]
+    Suppose $\{X(t): t \in T\}$ ($T = \mbb{R} \; \text{or} \; \mbb{R}_+$) is a stochastic process with a countable state space $S$, i.e. $X: T \mapsto S$, satisfying the Markov property:
+    \begin{equation*}
+        \prob \left[ X(t_{n+1}) \in A | X(t_n) = s_n, \cdots, X(t_1) = s_1 \right] = \prob \left[ X(t_{n+1}) \in A | X(t_n) = s_n \right],
+    \end{equation*}
+    for all $A \subset S$, $n \in \mbb{N}$, $t_1 < \cdots < t_{n+1} \in [0, \infty)$ and $s_1, \cdots, s_n \in S$.
+\end{definition}
+
+    \textcolor{red}{\textbf{NOTE}: we restrict to $X: \mbb{R} \mapsto S$ that are piecewise constant and right continuous.}
+
+\begin{definition}[Homegeneity]
+    Say a continuous-time Markov chain is \textbf{homogeneous} if 
+    \begin{equation*}
+        \prob \left[ X(t+u) \in A | X(u) = s \right] = \prob \left[ X(t) \in A | X(0) = s \right],
+    \end{equation*}
+    for all $A \subset S$, $u, t \in T$, and $s \in S$.
+\end{definition}
+
+\begin{definition}[Transition Matrices]
+    The \textbf{transition matrix} for a homogeneous continuous-time Markov chain depends on the time $t$:
+    \begin{equation*}
+        \left( P_t \right)_{i,j} = \prob \left[ X(t) = j | X(0) = i \right].
+    \end{equation*}
+\end{definition}
+
+\begin{theorem}[The Chapman-Kolmogorov Equation]
+    The transition matrix of a homogeneous continuous-time Markov chain satisfies the \textbf{Chapman-Koklmogorov equation}:
+    \begin{equation*}
+        P_{t+u} = P_t P_u = P_u P_t \quad \& \quad P_0 = I.
+    \end{equation*}
+\end{theorem}
+
+\subsection{Rate Matrices}
+
+\begin{definition}[Rate Matrices]
+    Suppose $P_t$ is differentiable with respect to $t$ at $t = 0$. Then 
+    \begin{equation*}
+        G:= \left. \frac{\dif P_t}{\dif t} \right|_{t = 0}
+    \end{equation*}
+    is called the \textbf{rate matrix} or the \textbf{generator}.
+\end{definition}
+
+\begin{remark}
+    The elements of $G$ satisfies
+    \begin{itemize}
+        \item $\sum_{j} G_{i,j} = 0$, $\forall i \in S$;
+        \item $G_{i,j} \ge 0$, for $j \neq i$;
+        \item $G_{i,i} = - \sum_{j \neq i} G_{i,j}$.
+    \end{itemize} 
+\end{remark}
+
+Notice that 
+\begin{equation*}
+    \frac{P_{t+u} - P_t}{u} =  \frac{P_t P_u - P_t}{u} = \frac{P_t (P_u - I)}{u} = P_t \frac{P_u - I}{u}
+\end{equation*}
+and
+\begin{equation*}
+    \frac{P_{t+u} - P_t}{u} =  \frac{P_u P_t - P_t}{u} = \frac{(P_u - I)P_t}{u} = \frac{P_u - I}{u} P_t,
+\end{equation*}
+so 
+\begin{equation*}
+    \lim_{u \to 0} \frac{P_{t+u} - P_t}{u} =  P_t \left(\lim_{u \to 0}  \frac{P_u - I}{u}\right)  = \left(\lim_{u \to 0} \frac{P_u - I}{u}\right) P_t.
+\end{equation*}
+
+\begin{proposition}
+    $P_t$ evolves according to 
+    \begin{equation*}
+        \frac{\dif P_t}{\dif t} = P_t G = G P_t,
+    \end{equation*}
+    which can also be written as 
+    \begin{equation*}
+        P_t = \exp(tG) \quad \text{(defined by power series)}.
+    \end{equation*}
+
+    In particular, a probability 
+    \begin{equation*}
+        \left< \mbf{\pi}_t \right| = \left< \mbf{\pi}_0 \right| P_t 
+    \end{equation*}
+    evolves by 
+    \begin{equation*}
+        \frac{\dif \mbf{\pi}_t}{\dif t} = \left< \mbf{\pi}_0 \right| \frac{\dif P_t}{\dif t} = \left< \mbf{\pi}_0 \right| P_t G = \left< \mbf{\pi}_t \right| G.
+    \end{equation*}
+\end{proposition}
+
+\begin{corollary}
+    Conservation of probability $\left< \mbf{\pi_t}|\mbf{1} \right> = 1$ implies $\left< G \right| \mbf{1} = 0$.
+\end{corollary}
+
+\begin{theorem}[The Master Equation]
+    The $i$-th element of $\mbf{\pi}_t$, denoted as $\mbf{\pi}_i$, satisfies the \textbf{master equation}:
+    \begin{align*}
+        \frac{\dif \mbf{\pi}_i}{\dif t} = & \left(\left< \mbf{\pi} \right| G\right)_i \\ 
+        = & \sum_{j} \mbf{\pi}_j G_{j, i} \\ 
+        = & \sum_{j \neq i} \left( \mbf{\pi}_j G_{j, i} \right) + \mbf{\pi}_i G_{i,i} \\ 
+        = & \underbrace{\sum_{j \neq i} \left( \mbf{\pi}_j G_{j, i} \right)}_{``\textbf{gain}''} - \underbrace{\sum_{j \neq i} \left( \mbf{\pi}_i G_{i, j} \right)}_{``\textbf{loss}''}.
+    \end{align*}
+\end{theorem}
+
+\begin{remark}
+    Its importance is exaggerated: it doesn't tell you correlations between states at different $t$ for example.
+\end{remark}
+
+\subsection{Stationarity \& Reversibility}
+
+\begin{definition}[Stationarity]
+    Say $\mbf{\pi} \in \Delta$ is \textbf{stationary} if 
+    \begin{equation*}
+        \left< \mbf{\pi} \right| G = \left< \mbf{0} \right|.
+    \end{equation*}
+\end{definition}
+
+\begin{definition}[Reversibility]
+    Say  $\mbf{\pi} \in \Delta$ is \textbf{reversible} if 
+    \begin{equation*}
+        \mbf{\pi}_i G_{i,j} = \mbf{\pi}_j G_{j,i}, \quad \forall i,j \in S.
+    \end{equation*}
+\end{definition}
+
+\begin{proposition}
+    Reversibility $\implies$ Stationarity.
+\end{proposition}
+
+\begin{proposition}
+    $S$ is finite $\implies$ the existence of stationary $\mbf{\pi}$.
+\end{proposition}
+
+There is an analogous decomposition of $S$ into transient and recurrent states, and of the set of recurrent states into communicating components.
+
+We have the same definition of an absorbing component, and we have the following nice result.
+
+\begin{proposition}
+    For a continous-time Markov chain with a finite state space $S$, each absorbing component has a unique stationary probability $\mbf{\pi}$.
+    
+    And the space of stationary $\mbf{\pi}$ for the whole chain (up to normalization) is the span of those for its absorbing components.
+
+    Futhermore, $0$ is a semisimple eigenvalue of $G$.
+\end{proposition}
+
+\begin{theorem}
+    Suppose the continuous-time Markov chain has a finite state space $S$, and $G$ has a unique absorbing component $A$, then the Markov chain is SP ergodic, which means 
+    \begin{equation*}
+        \mbf{\pi}_t \to \mbf{\pi}_A, \; \text{as} \; t \to \infty.
+    \end{equation*}
+\end{theorem}
+
+\begin{remark}
+    We didn't have to talk about aperiodicity, but in the dicrete-time case, we have to add the condition of it. This is because aperiodicity is automatically satisfied in continous time.
+\end{remark}
+
+\subsection{The Jump Chain}
+
+\begin{definition}[Waiting Times]
+    Let $\{X(t): t \in T\}$ be a continous-time Markov chain and $x \in S$ is a state, then the \textbf{waiting time} or the \textbf{holding time} is defined as
+    \begin{equation*}
+        W_x := \inf \{ t > 0 : X(t) \neq x | X(0) = x \}.
+    \end{equation*}
+\end{definition}
+
+\begin{proposition}
+    For a homogeneous Markov chain, the waiting time $W_x$ is exponentially distributed with expectation $1 / |G_{x,x}|$.
+\end{proposition}
+\begin{proof}
+    \begin{align*}
+        \prob \left[ W_x > t+u | W_x > t \right] = & \prob \left[ W_x > t + u | X(s) = x, \; \forall s \le t \right]\\ 
+        = & \prob \left[ W_x > t+u | X(t) = x \right] \quad \text{(by Markov property)} \\ 
+        = & \prob \left[ W_x > u | X(0) = x \right] \quad \text{(by homogeneity)} \\ 
+        = & \prob \left[ W_x > u \right]
+    \end{align*}
+    So, 
+    \begin{equation*}
+        \prob \left[ W_x > t+u \right] = \prob \left[ W_x > u \right] \prob \left[ W_x > t \right].
+    \end{equation*}
+    Thus, $\exists \gamma \in \mbb{R}$, s.t. 
+    \begin{equation*}
+        \prob \left[ W_x > t \right] = e^{-\gamma t}
+    \end{equation*}
+    ($\prob \left[ W_x > 0 \right] = 1$). Using
+    \begin{equation*}
+        \left. \frac{\dif}{\dif t} \prob \left[ W_x > t \right] \right|_{t = 0} = G_{x,x}
+    \end{equation*}
+    shows $\gamma = - G_{x, x}$.
+\end{proof}
+
+\begin{definition}[Jump Times]
+    Define \textbf{jump times} as 
+    \begin{equation*}
+        J_{n+1} := \inf \{ t > J_n : X(t) \neq X(J_n) \}, \; J_0 := 0.
+    \end{equation*}
+\end{definition}
+\begin{remark}
+    The jump times are an example of ``stopping times''.
+\end{remark}
+
+\begin{definition}[Stopping Times]
+    \textbf{Stopping times} $\{J_n : n \in \mbb{N}\}$ are random variables such that $\{ J_n \le t \}$ is independent of $\{ X(s) : s > t | X(s) : s \le t\}$
+\end{definition}
+
+\begin{theorem}
+    Markov chains satisfiy the strong Markov property: let $T$ be a stopping time conditional on $X(T) = i$, then $\{ X(T + t) : t \ge 0 \}$ is Markov and independent of $\{X(s): s \le T\}$.
+\end{theorem}
+
+\begin{definition}[Jump Chains]
+    Let $\{X(t):t\in\mbb{R}\}$ be a Markov chain and $\{J_n : n \in \mbb{N}\}$ be its jump times, then the corresponding \textbf{jump chain} is defined as 
+    \begin{equation*}
+        Y_n = X(J_n), \; n\in\mbb{N}.
+    \end{equation*}
+\end{definition}
+\begin{proposition}
+    The jump chain is a discrete-time Markov chain, with the transition probability
+    \begin{equation*}
+        P_{i,j} = \begin{cases}
+            0, \quad & G_{i,i} \neq 0 \; \& \; j = i \\ 
+            \frac{G_{i,j}}{|G_{i,i}|} \quad & G_{i,i} \neq 0 \; \& \; j \neq i \\ 
+            \delta_{i,j} \quad & G_{i,i} = 0
+        \end{cases}
+    \end{equation*}
+\end{proposition}
+
+\begin{remark}
+    We can make sample paths for the continous time Markov chain by making sample paths for the associated jump chain and choosing independent waiting times $W_{Y_n}$ with mean $\frac{1}{|G_{Y_n Y_n}}$ and let $J_n = \sum_{0 \le k <n} W_{Y_k}$.
+\end{remark}
+
+\subsection{Examples of Continuous-Time Markov Chains}
+
+\begin{example}[Poisson Processes]
+    The Poisson process $\{X(t): t \in \mbb{N}\}$ with rate $\lambda > 0$ is a continuous-time Markov chain with $S = \mbb{N}$, $X(0) = 0$, and the rate matrix
+    \begin{equation*}
+        G_{i,j} = 
+        \begin{cases}
+            \lambda \quad & j = i+1 \\ 
+            -\lambda \quad & j = i
+        \end{cases}
+    \end{equation*}
+
+    It has 
+    \begin{equation*}
+        \prob \left[ X(t+u) = n+k | X(u) = n \right] = \frac{(\lambda t)^k}{k!} e^{-\lambda t}, \quad \forall n, k \in \mbb{N}, \forall t, u \in \mbb{R}_+.
+    \end{equation*}
+\end{example}
+
+\begin{example}[Birth and Death Processes]
+    Suppose  $\{X(t): t \in \mbb{N}\}$ has birth rates $\alpha_i$ and death rates $\beta_i$ ($\beta_0 = 0$), $\forall i \in S := \mbb{N}$. Its rate matrix is 
+    \begin{equation*}
+        G_{i,j} = \begin{cases}
+            \alpha_i \quad & j = i+1 \\ 
+            \beta_i \quad & j = i-1 \\ 
+            -(\alpha_i + \beta_i) \quad & j = i
+        \end{cases}
+    \end{equation*}
+\end{example}
+
+\begin{example}[The $M/M/1$ Server Queue]
+    The $M/M/1$ server queue is a birth and death process with $\alpha_i = \alpha$, $\beta_i = \beta$ for $i \neq 0$. $i$ denotes the number of people in the queue.
+\end{example}
+
+\begin{example}[The $M/M/\infty$ Server Queue]
+    The $M/M/\infty$ server queue is a birth and death process with $\alpha_i = \alpha$, $\beta_i = i \beta$. This is a model of a supermarket with lots of cash registers.
+\end{example}
+
+\begin{example}[Population Growth]
+    Population growth can be modelled by a birth and death process with $\alpha_i = i \alpha$ and $\beta_i = i \beta$, where $i$ denotes the size of the population.
+\end{example}

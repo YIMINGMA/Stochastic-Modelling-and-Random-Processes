@@ -105,7 +105,7 @@
 \subsection{Stationary Distributions}
 
 \begin{definition}[Stationarity]
-    Let $\{ X_n | n \in \mbb{N} \}$ be a homogeneous discrete-time Markoc chain with state space $S$. The distribution $\pi(x)$, $x \in S$, is called \textbf{stationary} if for all $y \in S$
+    Let $\{ X_n | n \in \mbb{N} \}$ be a homogeneous discrete-time Markov chain with state space $S$. The distribution $\pi(x)$, $x \in S$, is called \textbf{stationary} if for all $y \in S$
     \begin{equation*}
         \sum_{x \in S} \pi(x) p(x,y) = \pi(y),
     \end{equation*}
@@ -129,7 +129,7 @@
     \end{equation*}
 \end{remark}
 
-\begin{theorem}
+\begin{theorem}\label{stationary distribution exists}
     Every homogeneous finite discrete-time Markov chain has a stationary distribution.
 \end{theorem}
 \begin{proof}
@@ -168,3 +168,228 @@
 \begin{definition}[Classes, Comminucating Components]
     A \textbf{class} (also called a \textbf{comminucating component}) is a set of all comminucating states in the state space.
 \end{definition}
+
+\begin{definition}[Absorbing Communicating Components]
+    A communicating component is \textbf{absorbing} or \textbf{closed} if it is impossible to leave it.
+\end{definition}
+
+\begin{remark}
+    The transition graph for a Markov chain can be quotiented using the communicating relation ``$\leftrightsquigarrow$'', and the resulting graph is acyclic (a \href{https://en.wikipedia.org/wiki/Directed_acyclic_graph}{DAG}), in which the basal communicating components are the absorbing ones.
+\end{remark}
+
+\begin{proposition}
+    Any finite discrete-time Markov chain has at least an absorbing communicating class. 
+\end{proposition}
+
+We can restrict a Markov chain to an absorbing component, and the result of the restriction is called irreducible.
+
+\begin{definition}[Irreducibility]
+    A Markov chain is called \textbf{irreducible}, if its states belong to one comminucating component.
+\end{definition}
+
+Now, here is another proof of Theorem \ref{stationary distribution exists}: For $x \in A$, where $A$ is an absorbing component of the Markov chain, let $\mu_x$ be the mean time to return to $x$ given that the chain starts in $x$. For an arbitrary state $y \in S$, let $\gamma_x(y)$ be the mean time in $y$ before returning to $x$ given the chain starts in $x$. Then $\gamma_x(y) \ge 0$ and $\left< \gamma_x \right| P = \left< \gamma_x \right|$. Normalize $\left< \gamma_x \right|$ by letting $\pi_x(y) = \gamma_x(y) / T_x$, then
+\begin{equation*}
+    \left< \mbf{\pi}_x \right| P = \left< \mbf{\pi}_x \right| \quad \text{and} \quad \left< \mbf{\pi}_x | \mbf{1} \right> = 1.
+\end{equation*}
+So $\mbf{\pi}_x$ is a stationary probability.
+
+\begin{remark}
+    $\mbf{\pi}_x = \mbf{\pi}_y$ if and only if $x, y$ are in the same absorbing component $A$, so denote it by $\mbf{\pi}_A$.
+\end{remark}
+
+\begin{remark}
+    \begin{equation*}
+        \mbf{\pi}_A(x) = \begin{cases}
+            \frac{1}{T_x} & x \in A \\ 
+            0  & x \notin A
+        \end{cases}
+    \end{equation*}
+\end{remark}
+
+\begin{remark}
+    $\mbf{\pi}_A$ is dynamic-system ergodic.
+\end{remark}
+
+\begin{definition}[Dynamic-System Ergodic]
+    A stationary distribution is \textbf{dynamic-system ergodic} if it is not a convex combination of other stationary probabilities.
+\end{definition}
+
+\begin{theorem}[Dynamic-System Ergodic Theorem]
+    If $\mbf{\pi}$ is DS-ergodic, then $\forall x \in S$ with $\pi(x) > 0$, then the fraction of times $0, \cdots, T-1$ spent in any $y \in X$ given that the process starts in $x$, converges almost surely to $\pi(y)$, as $T \to \infty$.
+\end{theorem}
+
+\begin{remark}
+    This provides a great interpretation of $\mbf{\pi}_A$.
+\end{remark}
+
+\begin{proposition}
+    If a finite discrete-time Markov chain has a unique absorbing component $A$, then the fraction of time spent in $y$ given that the process starts anywhere converges almost surely to $\mbf{\pi}_A(y)$, and $\mbf{\pi}_A$ is the only stationary probability.
+\end{proposition}
+
+\begin{remark}
+    DS-theorists would say such a Markov chain is \textbf{\textcolor{myblue}{uniquely ergodic}}.
+\end{remark}
+
+\begin{remark}
+    Suppose there are more than one absorbing components, say $A_j$'s, then there are ``commutors probabilities'' $C_{z,A_j}$, for which absorbing component $A_j$, you eventually land in if the process starts in $z \in X$. Then the fraction of time spent in $y$ converges to $\mbf{\pi}_{A_j}(y)$ with probability $C_{z, A_j}$, as $T \to \infty$.
+\end{remark}
+
+\begin{definition}[Stationary Markov Chains]
+    Say a homogeneous Markov chain is \textbf{stationary} if $\pi(x) := \prob \left[ X(0) = x \right]$ is a stationary probability.
+\end{definition}
+
+\subsection{Reverse Markov Chains}
+
+The Markov property also implies 
+\begin{equation*}
+    \prob \left[ X_m = s_m, \cdots, X_n = s_n \right] = \prob \left[ X_m = s_m \right] \tilde{P}_{s_n, s_n-1} \cdots \tilde{P}_{s_{m+1}, s_m}
+\end{equation*}
+with 
+\begin{equation*}
+    \tilde{P}_{i,j} := \prob \left[ X_{k-1} = j| X_{k} = i \right] = \frac{\prob \left[ X_k = i, X_{k-1} = j \right] }{\prob \left[ X_{k} = i \right] } = \frac{\prob \left[ X_{k-1} = j \right]}{\prob \left[ X_k = i \right]} P_{j, i}.
+\end{equation*}
+But in general the reverse chain is not homogeneous even if $P$ is, but if the Markov chain is stationary with stationary probability $\mbf{\pi}$ then 
+\begin{equation*}
+    \tilde{P}_{i,j} = \frac{\mbf{\pi}_j}{\mbf{\pi}_i} P_{k,i},
+\end{equation*} 
+so the reverse chain is also homogeneous; furthermore, it is stationary with the same $\mbf{\pi}$.
+
+\begin{definition}[Reversible Markov Chains]
+    Say a stationary Markov chain is \textbf{reversible}, if
+    \begin{equation*}
+        \mbf{\pi}_i P_{i,j} = \mbf{\pi}_j P_{j,i}, \; \forall i,j \in S
+    \end{equation*}
+    The above equation is referred as the condition of \textbf{detailed balance}.
+\end{definition}
+
+\begin{remark}
+    If a Markov chain is reversible, then $P = \tilde{P}$.
+\end{remark}
+
+\begin{proposition}
+    Note that if $\mbf{\pi} \in \Delta$ satisfying detailed balance for $P$ then $\mbf{\pi}$ is stationary for $P$ and the Markov chain with the initial probability $\mbf{\pi}$ is reversible.
+\end{proposition}
+
+\begin{definition}[Stochastic-Process Ergodicity]
+    Say a transition matrix $P$ is \textbf{stochastic}\\\textbf{-process} \textbf{ergodic} if $\exists \mbf{\pi} \in \Delta$ such that
+    \begin{equation*}
+        \forall \mbf{\pi} \in \Delta, \; \lim_{n\to\infty}\mbf{\pi} P^n= \mbf{\pi}.
+    \end{equation*}
+    (All senses of convergence are equivalent in a finite state space.)
+\end{definition}
+
+\begin{remark}
+    This notion tells us not only that fraction of time in state $y$ converges almost surely to $\pi(y)$ for any initial condition, but also that the probability of $X_n = y$ converges to $\pi(y)$, as $n \to \infty$.
+\end{remark}
+
+\begin{remark}
+    There are finite discrete-time Markov chain with a unique absorbing component (so DS ergodic) which are not SP-ergodic. 
+    
+    The obstruction is periodicity: let $T_A = \text{hcf} \{ \text{lengths of all cycles in $A$} \}$, which is called the \textbf{\textcolor{myblue}{period}} of $A$. If $T_A > 1$ then $A$ decomposed into ``cyclic classes'' $A_1, \cdots ,A_T$.
+\end{remark}
+
+\begin{theorem}[Stochastic-Process Ergodicity]
+    A homogeneous finite discrete-time Markov chian is SP ergodic if it has a unique absorbing component and it is aperiodic ($T_A = 1$).
+\end{theorem}
+\begin{proof}
+    The proof is by the \href{https://en.wikipedia.org/wiki/Perron%E2%80%93Frobenius_theorem}{Perron-Frobenius theorem}: for an irreducible, aperiodic, nonnegative matrix, there is a unique and simple eigenvalue of maximum modulus and it has a possitive eigenvector.
+
+    In our case, the largest modulus of eigenvalue $P$ can have is $1$ (conservation of probability or the \href{https://en.wikipedia.org/wiki/Gershgorin_circle_theorem}{Gershgorin Circile Theorem}) and we konw it has an eigenvalue $1$ ($P \left| \mbf{1} \right> = \left| \mbf{1} \right>$). We can restrict to the unique absorbing component so $1$ is simple and has a postive left eigenvector $\left< \mbf{\pi} \right|$ which we normalize to $\left< \mbf{\pi} \right| \left. \mbf{1} \right> = 1$. Then let $\mbf{\pi}_0$ be the initial probability and decompose $P$ into its eigenvectors and generalized eigenvectors,
+    \begin{equation*}
+        \mbf{\pi}_0 P^n = a \mbf{\pi}_0 + \text{terms corresponding to eigenvalues within the unit disc}.
+    \end{equation*}
+    Since terms corresponding to eigenvalues within the unit disc go to $0$ exponentially as $n \to \infty$ and $\left< \mbf{\pi}_0 | \mbf{1} \right> = 1$, $P \left| \mbf{1} \right> = \left| \mbf{1} \right>$, we have $a = 1$. Hence the Markov chain is SP ergodic.
+\end{proof}
+
+\subsection{Monte Carlo Markov Chains}
+
+Given a probability distribution $\mbf{\pi}$ on a state space $S$ and a random variable $X: S \mapsto \mbb{R}$, we may want to compute the mean of $X$. Or, we might be given an unnormalized probability $\tilde{\mbf{\pi}}$ and want $\E[X]$ or $Z = \left< \tilde{\mbf{\pi}} | \mbf{1} \right>$ which is the normalization constan of $\tilde{\mbf{\pi}}$.
+
+Such problems arise in statistical mechanics where the probability of being in state $x$ is proportional to $\exp(-\beta H(x))$, where $H$ refers to the ``energy'' and $\beta = 1/(k_BT)$ refers to the ``coolness''. Then
+\begin{equation*}
+    Z = \sum_{x \in S} e^{-\beta H(x)}.
+\end{equation*}
+and 
+\begin{equation*}
+    \E [X] = \frac{1}{Z} \sum_{x \in S} H(x) e^{- \beta H(x)}.
+\end{equation*}
+
+They also arise in statistical inference for Bayesian model comparison. Let $M$ denote the model and $\mu$ some constant, then Bayesian inference gives 
+\begin{equation*}
+    \prob \left[ \mu | \text{data}, M \right] = \frac{\prob \left[ \text{data} | M, \mu \right] \prob \left[ \mu \right] }{Z(M)}.
+\end{equation*}
+
+To solve such problems, we can design a Markov chain with unique absorbing component on which $\tilde{\mbf{\pi}}$ is stationary. Then the fraction of time spent in state $x$ by a typical realization converges to $\pi(x)$, as $T \to \infty$, and the time-average of $\E \left[ X_n \right] \to Z$.
+
+The easiest way to achieve $\tilde{\mbf{\pi}}$ stationary is to choose $P$ so that
+\begin{equation*}
+    \tilde{\mbf{\pi}}_i P_{i,j} = \tilde{\mbf{\pi}}_j P_{j, i}, \forall i,j \in S,
+\end{equation*}
+and $P \left| \mbf{1} \right> = \left| \mbf{1} \right>$ and $P_{i,j} \ge 0$. We can do this by taking any proposal transition probabilities $Q_{i,j}$ and use accpetance probabilities $A_{i,j}$ like 
+\begin{equation*}
+    \href{https://en.wikipedia.org/wiki/Metropolis%E2%80%93Hastings_algorithm}{\text{Metropolis-Hastings}} \quad A_{i,j} = 
+    \begin{cases}
+        1 \quad & \tilde{\mbf{\pi}}_j Q_{j,i} \ge \tilde{\mbf{\pi}}_i Q_{i, j} \\ 
+        \frac{\tilde{\mbf{\pi}}_j P_{j,i}}{\tilde{\mbf{\pi}}_i P_{i, j}} \quad & \text{Otherwise}
+    \end{cases}
+\end{equation*}
+and
+\begin{equation*}
+    \text{Heatbath} \quad A_{i,j} = \frac{\tilde{\mbf{\pi}}_j Q_{j, i}}{\tilde{\mbf{\pi}}_i Q_{i,j} + \tilde{\mbf{\pi}}_j Q_{j,i}},
+\end{equation*}
+and set 
+\begin{equation*}
+    P_{i,j} = \begin{cases}
+        Q_{i,j} A_{i,j}, \quad & i \neq j \\ 
+        1 - \sum_{k \neq i} Q_{i,k} A_{i,k} \quad & i = j
+    \end{cases}
+\end{equation*}
+We might as well take $Q_{i,i} = 0, \forall i \in S$. We require $Q_{i,i}$ have a unique absorbing component. Then with the above choices, $P$ has detailed balance for $\tilde{\mbf{\pi}}$:
+\begin{equation*}
+    \frac{\tilde{\mbf{\pi}}_i Q_{i,j} A_{i,j}}{\tilde{\mbf{\pi}}_j Q_{j,i} A_{j,i}} = 1.
+\end{equation*}
+We can do this without rejection: given $i$, let $w_{i,j} = Q_{i,j}A_{i,j}$, $W_i = \sum_{j \in S}w_{i,j}$ and $P_{i,j} = \frac{w_{i,j}}{W_i}$ and weight time spent in $i$ by $W_i$.
+
+\begin{definition}[Mixing Time]
+    \textbf{Mixing time} is defined as
+    \begin{equation*}
+        T(\epsilon) := \min \{ T \in \mbb{Z}_+ | d(\sigma P^n, n) \le \epsilon, \forall n \ge T, \forall \sigma \in \Delta\},
+    \end{equation*}
+    using the total variation distance $d(x,y):= \frac{1}{2} \| x-y \|_1$.
+\end{definition}
+
+\begin{definition}[Zero Charge]
+    Define the \textbf{zero charge norm} of a matrix $P$ as 
+    \begin{equation*}
+        \| P \|_Z = \sup_{\substack{v \neq \mbf{0} \\ v \mbf{1} = 0}} \frac{\|vP\|_1}{\|v\|_1},
+    \end{equation*}
+    where $Z$ is called \textbf{zero charge}.
+\end{definition}
+
+\begin{remark}
+    If $\| P \|_Z < 1$, then $P$ is a contraction on $\Delta$, so we can get the SP ergodicity. In particular, $\|P^n\|_Z \le \|P\|^n_Z \to 0$ exponentially.
+
+    More generally, if $\|P^n\|_Z \le Cr^n$ with $r \in (0,1)$, then 
+    \begin{equation*}
+        T(\epsilon) \le \frac{| \log \epsilon/C |}{|\log r|}
+    \end{equation*}
+\end{remark}
+
+\begin{remark}
+    One can get such bounds on $\|P\|^n$ from Dobrushion's ergodicity coefficient: 
+    \begin{equation*}
+        \| P \|_Z = 1 - \min_{i,j} \sum_{k} \min \{P_{i,k}, P_{j,k}\} = \frac{1}{2} \max_{i,j} \sum_k |P_{i,k} - P_{j,k}|.
+    \end{equation*}
+\end{remark}
+
+But what we really want is to know $d(\mu_T, \pi)$, where
+\begin{equation*}
+    \mu_T = \frac{1}{T} \sum_{n = 0}^{T-1} \delta_{X_n}.
+\end{equation*}
+Typically, $d(\mu_T, \pi)$ is $O(T^{-1/2})$ by the central limit theorem generalization. 
+
+We can reformulate the problem into finding $\min T$, such that $\prob \left[ d(\mu_T, \pi) \ge \epsilon \right] < \eta$. Large deviation theorem implies: 
+\begin{equation*}
+    \prob \le C \exp \left( - \frac{T \epsilon^2}{K+\frac{1}{2}} \right),
+\end{equation*}
+where $K = \|(I-P)^{-1}\|_Z$. So $T \sim (K+\frac{1}{2})\epsilon^{-2}\log\frac{C}{\eta}$.
