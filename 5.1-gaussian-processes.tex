@@ -1,0 +1,47 @@
+\section{Gaussian Processes}
+
+\begin{definition}[Gaussian Processes]
+    Suppose $X: T \mapsto \mbb{R}$ where $T$ is an arbitrary domain, then it is called a \textbf{Gaussian process} if $\forall n \in \mbb{N}_+$, $\forall t_1, \cdots, t_n \in T$, $(X(t_1), \cdots, X(t_n))$ follows a multivariate Gaussian distribution, i.e., its PDF has the form 
+    \begin{equation*}
+        f(x_1, \cdots, x_n) = \frac{1}{\sqrt{(2\pi)^n \det (\Sigma)}} \exp \left( - \frac{1}{2} (\mbf{x} - \mbf{\mu})^T \Sigma^{-1} (\mbf{x} - \mbf{\mu}) \right)
+    \end{equation*}
+    for some $\mbf{\mu} = \begin{bmatrix}
+        \mu_1, \cdots, \mu_n
+    \end{bmatrix}^T$ and $\Sigma$ being a $n \times n$ (symmetric) positive definite matrix.
+\end{definition}
+
+\begin{proposition}
+    A nice result is that there exist $m: T \mapsto \mbb{R}$, $c: T \times T \mapsto \mbb{R}$, such that 
+    \begin{equation*}
+        \mu_i = m(t_i), \; \Sigma_{i,j} = c(t_i, t_j),
+    \end{equation*}
+    with $c$ being ``positive definite'', i.e. such that $\Sigma$ is positive definite, $\forall n \in \mbb{N}_+$ and $\forall t_1, \cdots, t_n \in T$.
+
+    This means we can specify a Gaussian process by giving its \textbf{\textcolor{myblue}{mean function}} $m(\cdot)$ and its \textbf{\textcolor{myblue}{covariance function}} $c(\cdot, \cdot)$.
+\end{proposition}
+
+\begin{example}
+    Let $T = \mbb{R}$, $m(t) = 0$, $c(t, t') = e^{-|t'-t|}$, then this process is called a \textbf{stationary Orstein-Uhlenbeck process}.
+\end{example}
+
+\begin{remark}
+    One can allow degenerate Gaussians, e.g. an Orstein-Uhlenbeck process with initial condition $X(0) = 0$, then 
+    \begin{equation*}
+        f(x_0) = \delta_0 (x_0).
+    \end{equation*}
+
+    The best way to define a general multivariate Gaussian is through its characteristic function 
+    \begin{equation*}
+        \E \left[ e^{i \mbf{\theta}^T \mbf{X}} \right] = e^{i \mbf{\theta}^T \mbf{\mu} - \frac{1}{2} \mbf{\theta^T} \Sigma \mbf{\theta}}.
+    \end{equation*}
+\end{remark}
+
+We can include vector valued Gaussian processes.
+\begin{definition}[Vector Valued Gaussian Processes]
+    Suppose $X: T \mapsto R^n$, then $X$ is a \textbf{vector valued Gaussian process} if $X' : T \times \{1, \cdots, n\} \mapsto \mbb{R}$ is a scaler valued Gaussian process.
+\end{definition}
+
+\begin{definition}[Stationarity]
+    If $T = \mbb{R} \times K$, then say the Gaussian process is stationary if $m(t, k)$ is independent of $t$ and $c(t, k; t', k')$ is a function only of $t-t'$, $k$ and $k'$. 
+\end{definition}
+

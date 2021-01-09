@@ -1,0 +1,161 @@
+\section{Markov Processes with \texorpdfstring{$S = \mbb{R}$}{}}
+
+\begin{definition}[Markov Processes]
+    Let $X: T \mapsto \mbb{R}$, where $T$ can be either $\mbb{N}$ or $\mbb{R}$, $X$ is called a \textbf{Markov process} if it satisfies the \textbf{Markoc property}:
+    \begin{equation*}
+        \prob \left[ X(t_{n+1}) \in A | X(t_n) = x_n, \cdots, X(t_1) = x_1 \right] = \prob \left[ X(t_{n+1}) \in A | X(t_n) = x_n \right],
+    \end{equation*}
+    for any $A \subset S$, $n \in \mbb{N}$, and $t_{n+1} > t_n > \cdots > t_1$.
+\end{definition}
+
+\begin{definition}[Homogeneity]
+    Say a Markov process is \textbf{homogeneous} if $\prob [X(t) \in A | X(t') = x] = \prob [ X(t-t') \in A | X(0) = x]$, $\forall t, t' \in T$.
+\end{definition}
+
+\begin{remark}
+    It's unlikely that $\prob [X(t) = y | X(0) = x] > 0$, so instead specify $\prob [X(t) \in A | X(0) = x]$ for a measurable subset $A \subset \mbb{R}$ as 
+    \begin{equation*}
+        \int_A p_t(x,y) \dif y
+    \end{equation*}
+    for a transition density $p_t$.
+\end{remark}
+
+\begin{definition}[Transition Densities]
+    $p_t: \mbb{R} \times \mbb{R} \mapsto \mbb{R}$ is called a \textbf{transition density} for a homogeneous Markov process if 
+    \begin{equation*}
+        \prob \left[ X(t) \in A | X(0) = x \right] = \int_A p_t(x,y) \dif y,
+    \end{equation*}
+    where $A \subset \mbb{R}$ is any measurable set.
+\end{definition}
+
+\begin{remark}
+    There is a technical problem that perhaps $\prob [X(0) = x] = 0$, so we need to extend the concept of conditional probability. Any choice of interpretation of conditional probability such that 
+    \begin{equation*}
+        \prob [X(t) \in A ] = \int \prob \left[ X(t) \in A | X(0) = x)\right] \dif \prob [X(0) \le x] \qquad (\href{https://en.wikipedia.org/wiki/Riemann%E2%80%93Stieltjes_integral}{\text{Riemann–Stieltjes integral}})
+    \end{equation*}
+    will do.
+\end{remark}
+
+\begin{theorem}[The Chapman-Kolmogrov Equation]
+    The Markov property and homogeneity imply the \textbf{Chapman-Kolmogrov equation}:
+    \begin{equation*}
+        p_{t+u}(x,y) = \int_\mbb{R} p_t(x, z) p_t(z, y) \dif z.
+    \end{equation*}
+\end{theorem}
+
+\subsection{Jump Processes}
+
+\begin{definition}[Jump Processes]
+    $\{X(t): t\in T\}$ is a \textbf{jump process} if there is a \textbf{jump rate density} $r(x,y)$ with the \textbf{exit rate}
+    \begin{equation*}
+        R(x) = \int r(x,y) \dif y \le M < \infty, \forall x \in \mbb{R},
+    \end{equation*}
+    where $M$ is a constant.
+
+    The transition density satisfies
+    \begin{equation*}
+        p_{\Delta t} (x,y) = r(x,y) \Delta t + (1-R(x)\Delta t) \delta (y-x) + o(\Delta t), \; \text{as} \; \Delta t \to 0.
+    \end{equation*}
+\end{definition}
+
+\begin{theorem}[The Kolmogrov-Feller Equation]
+    The \textbf{Kolmogrov-Feller equation} for a jump process $X$ is 
+    \begin{equation*}
+        \frac{\partial}{\partial t} p_t(x,y) = \int_\mbb{R} p_t(x,y) r(z, y) - p_t(x,y) r(y,z) \dif z.
+    \end{equation*}
+\end{theorem}
+
+\subsection{Diffusion Processes}
+
+\subsubsection{The Brownian Motion}
+
+One example of the diffusion process is the Brownian motion (also called the Wiener process).
+\begin{definition}[The Brownian Motion]
+    The \textbf{Brownian motion} $B: \mbb{R}_+ \mapsto \mbb{R}$ is the Gaussian process with mean $m(t) = 0$ and covariance $c(t,t') = \min (t, t')$ and almost surely continuous paths.
+\end{definition}
+
+\begin{proposition}
+    The Brownian motion is a Markov process with independent increments: $\forall t_1 < \cdots, t_n \in \mbb{R}_+$, 
+    \begin{equation*}
+        \left\{ X(t_{k+1}) - X(t_k) | k = 1, \cdots, n-1 \right\}
+    \end{equation*}
+    are independent random variables.
+
+    Furthermore, the increments are stationary: $X(t) - X(s)$ and $X(t-s) - X(0) = X(t-s)$ have the same distribution, for $t > s$. So $B(t)$ is homogeneous.
+\end{proposition}
+
+\begin{proposition}
+    The transition density $p_t(x,y)$ of a Brownian motion is $\mathcal{N}(y-x, t)$, which satisfies the heat equation 
+    \begin{equation*}
+        \frac{\partial}{\partial t} p_t(x,y) = \frac{1}{2} \frac{\partial^2}{\partial y^2} p_t(x,y).
+    \end{equation*}
+    with initial condition 
+    \begin{equation*}
+        p_0(x,y) = \delta (y-x).
+    \end{equation*}
+\end{proposition}
+
+\begin{remark}
+    $B(t)$ is not stationary, and $B(t) \sim \mathcal{N}(0, t)$.
+\end{remark}
+
+\begin{proposition}
+    $B(t)$ is scale invariant: $B(\lambda t)$ and $\sqrt{\lambda} B(t)$ have the same distribution.
+\end{proposition}
+
+\begin{proposition}
+    $B(t)$ is continuous almost surely, but it is also almost surely nowhere differentiable.
+\end{proposition}
+
+Let $\xi_{t, h} := \frac{B(t+h) - B(t)}{h} \sim \mathcal{N} (0, \frac{1}{h})$, then $\xi_{t, h}$ can take arbitrarily large values as $h \to 0$. But we can informally talk about and use the limit process $\xi_t:=\lim_{h\to 0} \xi_{t,h}$, which is called the \textbf{Gaussian white noise}. It can be considered as a limiting case of a Gaussian process with mean $m(t) = 0$ and covariance $c(t, t') = \delta(t-t')$. Then $B(t) = \int_0^t \xi_{t'} \dif t'$. Or, we can write it as a stochastic differential equation 
+\begin{equation*}
+    \frac{\dif B}{\dif t} = \xi, \; B(0) = 0.
+\end{equation*}
+
+\subsubsection{Generators as Operators}
+
+For a continuous-time Markov chain on a conutable state space $S$, for any function $f: S \mapsto \mbb{R}$, 
+\begin{equation*}
+    \E [ f(X(t)) ] = \sum_{x \in S} \mbf{\pi}_t(x) f(x) = \left< \mbf{\pi}_t | \mbf{f} \right>.
+\end{equation*}
+So 
+\begin{equation*}
+    \frac{\dif}{\dif t} \E [f(X(t))] = \frac{\dif}{\dif t} \left< \mbf{\pi}_t | \mbf{f} \right> = \left< \mbf{\pi}_t \left| G \right| \mbf{f} \right> = \E [Gf(X(t))].
+\end{equation*}
+This allows use to think of the generator $G$ as acting on the function $f: S \mapsto \mbb{R}$ by
+\begin{equation*}
+    (Gf)(x) = \sum_{y \neq x} G_{x,y} \left( f(y) - f(x) \right). 
+\end{equation*}
+
+Extend this to $S = \mbb{R}$ by replacing matrices and vectors by operators and functions. For the Brownina motion, 
+\begin{align*}
+    \frac{\dif}{\dif t} \E [f(X(t))] = & \int_\mbb{R} \frac{\partial p_t(x,y)}{\partial t} f(y) \dif y \\ 
+    = & \frac{1}{2} \int_\mbb{R} \frac{\partial^2 p_t(x, y)}{\partial y^2} f(y) \dif y \\
+    = & \E [ (\mathcal{L} f)(X(t)) ]
+\end{align*}
+If $f$ is chosen to be twice differentiable and $f \; \& \; f' \to 0$ as $x \to \pm \infty$, then integration by parts gives 
+\begin{equation*}
+    (\mathcal{L}f)(x) = \frac{1}{2} f''(x).
+\end{equation*}
+Notice that $\mathcal{L}$ is linear in this case.
+
+\begin{definition}[Generators]
+    We call $\mathcal{L}$ a \textbf{generator} on functions.
+\end{definition}
+
+
+For a jump process on $\mbb{R}$, 
+\begin{align*}
+    (\mathcal{L}f)(x) = \int_\mbb{R} r(x,y) [f(y) - f(x)] \dif y.
+\end{align*}
+
+We can obtain the Brownian motion as a scaling limit of a jump process. Take a jump process $X(t)$ with  $X(0) = 0$, and $r(x,y) = q(y-x)$ such that 
+\begin{equation*}
+    \int_\mbb{R} z q(z) \dif z = 0, \; \int_\mbb{R} z^2 q(z) \dif z = \sigma^2 \in (0, \infty).
+\end{equation*}
+Then $\forall T > 0$, with,
+\begin{equation*}
+    \left. \frac{\epsilon}{\sigma} X(\frac{t}{\epsilon^2}) \right|_{t \in [0, T]} \xrightarrow{\text{d}} B(t), \; \text{as} \; \epsilon \to 0.
+\end{equation*}
+
+\subsubsection{General Diffusions \texorpdfstring{on $\mathbb{R}$}{}}

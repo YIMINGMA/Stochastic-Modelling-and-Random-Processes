@@ -1,2 +1,34 @@
 \section{Continuous-Time Markov Chains with Countably Infinite State Spaces}
 
+Define null and positive recurrence as in the discrete-time Markov chain case, but with \textcolor{myblue}{$T_x := \inf \{t > J_1 : X(t) = x$ be the \textbf{first return time} to $x$}.
+
+\begin{proposition}
+    Each positively recurrent absorbinig component has a unique stationary probability $\mbf{\pi}$, and 
+    \begin{equation*}
+        \pi(x) = \frac{\E [ W_x ]}{\E [T_x]} = \frac{\text{mean waiting time}}{\text{mean return time}}.
+    \end{equation*}
+\end{proposition}
+
+In continuous time, you can get ``explosion'': 
+\begin{definition}[Explosion]
+    Let $J_\infty = \lim_{n\to\infty} J_n$. If $\prob [J_\infty = \infty] < 1$, then the continuous-time Markov chain is called \textbf{explosive}.
+\end{definition}
+\begin{remark}
+    Explosion means there is a positive probability for infinitely many events to happen in a bounded time.
+\end{remark}
+
+\begin{proposition}
+    If $\sup_{i\in S} |G_{i,i}| < \infty$, then the Markov chain is not explosive.
+\end{proposition}
+
+\begin{example}[An Example with Explosion]
+    Consider a birth and death process with $X(0) = 1$, $\alpha_i = i^2$, $\beta_i = 0$. Then
+    \begin{align*}
+        \E [J_\infty] = & \lim_{n \to \infty} \sum_{i=1}^n \E [W_i] \\
+        = & \lim_{n \to \infty} \sum_{i=1}^n \frac{1}{\alpha_i} \\ 
+        = &  \lim_{n \to \infty} \sum_{i=1}^n \frac{1}{i^2} \\ 
+        = & \sum_{i=1}^\infty \frac{1}{i^2} < \infty
+    \end{align*}
+    So $\prob [J_\infty = \infty] = 0$.
+\end{example}
+
